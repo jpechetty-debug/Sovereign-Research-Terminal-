@@ -1,0 +1,50 @@
+SPORTKING.NS	93.33	Textiles (Spinning)	Textile Manufacturing	1,490.00	15.02	7
+INDIAMART.NS	76.96	Communication Services	Internet Content & Info	12,614.60	20.92	7
+MSFT	71.42	IT Services	Software - Infrastructure	277,280.00	23.36	5
+INFY.NS	71.11	IT Services	IT Services	538,850.00	18.80	5
+CASTROLIND.NS	65.26	Energy	Oil & Gas Refining	17,746.80	18.69	8
+GOOGL	65.18	Communication Services	Internet Content & Info	385,277.00	29.49	5
+META	65.07	Communication Services	Internet Content & Info	158,955.00	26.74	5
+POLYCAB.NS	65.00	Energy & Utilities	Electrical Equipment	116,467.00	44.36	4
+IGIL.NS	65.00	Metals & Mining	Precious Metals & Mining	14,695.60	28.67	7
+BHARTIHEXA.NS	65.00	Communications	Telecom Services	76,185.00	43.47	8
+NFLX	65.00	Communication Services	Entertainment	43,288.50	40.34	3
+INDUSTOWER.NS	65.00	Communications	Telecom Services	115,468.00	16.19	8
+ANANDRATHI.NS	65.00	Financial Services	Asset Management	29,708.90	75.72	5
+OFSS.NS	63.85	IT Services	Software - Infrastructure	63,134.30	25.97	4
+EXHICON.BO	63.68	Communication Services	Advertising Agencies	644.79	24.02	4
+TCS.NS	61.19	IT Services	IT Services	936,723.00	19.64	5
+PERSISTENT.NS	61.17	IT Services	IT Services	84,861.40	49.11	7
+NVDA	60.65	Technology	Semiconductors	446,993.00	37.61	3
+SCHAEFFLER.NS	60.23	Consumer Cyclical	Auto Parts	61,044.40	53.16	4
+APARINDS.NS	60.01	Energy & Utilities	Electrical Equipment	45,560.50	46.82	5
+FEDERALBNK.NS	60.01	Financial Services	Banks - Regional	71,865.40	17.69	5
+JYOTICNC.NS	60.01	Industrials	Specialty Machinery	18,630.50	0.76	2
+DIXON.NS	60.00	Technology	Consumer Electronics	64,814.60	38.94	6
+JAMNAAUTO.NS	60.00	Consumer Cyclical	Auto Parts	4,989.34	25.73	4
+KPIGREEN.NS	60.00	Utilities	Utilities - Renewable	8,121.72	19.23	5
+DCBBANK.NS	60.00	Financial Services	Banks - Regional	6,069.86	8.53	1
+GESHIP.NS	60.00	Industrials	Marine Shipping	19,600.50	8.69	6
+PCJEWELLER.NS	60.00	Consumer Cyclical	Luxury Goods	7,930.77	13.10	2
+BANCOINDIA.NS	60.00	Consumer Cyclical	Auto Parts	8,459.56	17.32	6
+BSE.NS	60.00	Financial Services	Financial Data & Exch	133,259.00	61.79	8
+HDBFS.NS	60.00	Financial Services	Credit Services	51,796.00	22.29	1
+JBCHEPHARM.NS	60.00	Healthcare	Drug Manufacturers	32,198.40	41.72	8
+THELEELA.NS	60.00	Consumer Cyclical	Lodging	14,346.80	36.97	2
+ADANIPOWER.NS	60.00	Energy & Utilities	Utilities - Independent	339,068.00	30.00	6
+UJJIVANSFB.NS	60.00	Financial Services	Banks - Regional	11,721.70	23.93	1
+MUTHOOTFIN.NS	60.00	Financial Services	Credit Services	143,562.00	16.45	2
+DOMS.NS	60.00	Industrials	Business Equipment	14,620.50	66.12	6
+CANFINHOME.NS	60.00	Financial Services	Mortgage Finance	11,240.90	11.53	6
+KARURVYSYA.NS	60.00	Financial Services	Banks - Regional	27,229.70	11.84	5
+GARFIBRES.NS	60.00	Textiles	Textile Manufacturing	6,146.54	28.95	2
+AADHARHFC.NS	60.00	Financial Services	Mortgage Finance	20,852.80	20.51	5
+GUJGASLTD.NS	60.00	Utilities	Utilities - Regulated Gas	22,279.80	19.24	6
+HINDZINC.NS	60.00	Metals & Mining	Industrial Metals	238,562.00	20.21	7
+APOLLOTYRE.NS	60.00	Consumer Cyclical	Auto Parts	27,749.00	29.97	7
+CHENNPETRO.NS	60.00	Energy	Oil & Gas Refining	14,501.70	6.74	5
+MAHLOG.NS	60.00	Industrials	Integrated Logistics	3,846.86	0.00	6
+TFCILTD.NS	60.00	Financial Services	Credit Services	3,134.82	25.75	1
+METROBRAND.NS	60.00	Consumer Cyclical	Apparel Retail	27,758.00	71.32	5
+ANGELONE.NS	60.00	Financial Services	Capital Markets	25,596.50	34.27	3
+ADANIPORTS.NS	60.00	Industrials	Marine Shipping	339,903.00	25.55	8
