@@ -3,6 +3,7 @@ import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import YahooFinance from 'yahoo-finance2';
 import { initDB, getUniverse, addTicker, removeTicker, getFundamentalsCache, saveFundamentalsCache } from './src/db';
+import { calculatePiotroskiFScore, type AnnualFundamentalPeriod } from './src/lib/piotroski';
 
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
@@ -34,13 +35,52 @@ async function processFundamentalQueue() {
       const fd = summary.financialData || {};
       const dks = summary.defaultKeyStatistics || {};
       const sd = summary.summaryDetail || {};
-      
+
+      // Real Piotroski F-Score + CFO/PAT, computed from actual multi-year
+      // financial statements rather than the old fixed proxies (cfoPat: 1.1,
+      // fScore: 5). This is a separate fetch/try-catch from the quoteSummary
+      // call above on purpose: fundamentalsTimeSeries is a heavier, less
+      // reliable endpoint (thin small-caps often lack enough statement
+      // history), and a failure here should leave fScore/cfoPat as `null`
+      // rather than wiping out the growth/ROE/valuation data we already got.
+      let fScore: number | null = null;
+      let fScoreDetail: ReturnType<typeof calculatePiotroskiFScore> | null = null;
+      let cfoPat: number | null = null;
+
+      try {
+        const period1 = new Date();
+        period1.setFullYear(period1.getFullYear() - 4);
+
+        const series = (await yahooFinance.fundamentalsTimeSeries(ticker, {
+          period1,
+          period2: new Date(),
+          type: 'annual',
+          module: 'all',
+        })) as unknown as AnnualFundamentalPeriod[];
+
+        const piotroski = calculatePiotroskiFScore(series);
+        fScore = piotroski.normalizedScore;
+        fScoreDetail = piotroski;
+
+        const latest = [...series]
+          .filter((p) => p && p.date != null)
+          .sort((a, b) => new Date(a.date as any).getTime() - new Date(b.date as any).getTime())
+          .pop();
+
+        if (latest && typeof latest.operatingCashFlow === 'number' && typeof latest.netIncome === 'number' && latest.netIncome > 0) {
+          cfoPat = Number((latest.operatingCashFlow / latest.netIncome).toFixed(2));
+        }
+      } catch (statementErr: any) {
+        console.error(`Statement history fetch failed for ${ticker} (F-Score/CFO-PAT unavailable):`, statementErr?.message || statementErr);
+      }
+
       const data = {
         salesGrowth: (fd.revenueGrowth || 0) * 100,
         epsGrowth: (fd.earningsGrowth || 0) * 100,
         roe: (fd.returnOnEquity || 0) * 100,
-        cfoPat: 1.1, // Fixed proxy
-        fScore: 5, // Fixed proxy
+        cfoPat, // real CFO/net-income ratio, or null if statement data unavailable
+        fScore, // real 0-9 Piotroski F-Score (rescaled if some tests were ungradable), or null
+        fScoreDetail, // full breakdown (criteria pass/fail + dataQuality) for the UI
         debtEquity: fd.debtToEquity ? fd.debtToEquity / 100 : 0.5,
         peRatio: sd.trailingPE || dks.forwardPE || 15,
       };
@@ -51,7 +91,9 @@ async function processFundamentalQueue() {
       saveFundamentalsCache(ticker, null);
     }
     
-    await new Promise(r => setTimeout(r, 1000));
+    // Two Yahoo requests per ticker now (quote summary + statement history),
+    // so we pace a little more conservatively than before.
+    await new Promise(r => setTimeout(r, 1200));
   }
   
   isProcessingQueue = false;

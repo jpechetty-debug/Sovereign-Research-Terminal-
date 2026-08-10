@@ -94,7 +94,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           change: 0,
           marketCap: "Unknown",
           regime: "Unknown",
-          metrics: { mcapCr: 0, pledge: 0, salesGrowth: 0, epsGrowth: 0, roe: 0, cfoPat: 0, fScore: 0, debtEquity: 0, peRatio: 0 },
+          metrics: { mcapCr: 0, pledge: 0, salesGrowth: 0, epsGrowth: 0, roe: 0, cfoPat: null as number | null, fScore: null as number | null, debtEquity: 0, peRatio: 0 },
           scores: { sales: 0, roe_roce: 0, cfo_pat: 0, valuation: 0, eps: 0, f_score: 0, debt_equity: 0, momentum: 0, sentiment: 0 }
         }));
         setStocks(initializedStocks);

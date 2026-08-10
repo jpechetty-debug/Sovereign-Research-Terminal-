@@ -18,7 +18,11 @@ function generateAlerts(stocks: ReturnType<typeof useAppEngine>['stocks']): Gene
   const alerts: GeneratedAlert[] = [];
 
   stocks.forEach(s => {
-    if (s.metrics.fScore <= 2) {
+    // Note: `s.metrics.fScore` can be `null` (statement history unavailable
+    // for this ticker). Guard explicitly — `null <= 2` evaluates to `true`
+    // in JS (null coerces to 0), which would otherwise fire a false "weak
+    // fundamentals" alert on every stock we simply don't have data for.
+    if (s.metrics.fScore != null && s.metrics.fScore <= 2) {
       alerts.push({
         ticker: s.ticker,
         title: 'F-Score Weakness',

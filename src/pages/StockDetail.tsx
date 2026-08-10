@@ -91,11 +91,17 @@ export function StockDetail() {
   };
 
   // Investment Checklist Generation (Tickertape style)
-  const checks = [
+  const checks: { label: string; pass: boolean | null; desc: string }[] = [
     { label: "Intrinsic Value", pass: stock.metrics.peRatio > 0 && stock.metrics.peRatio < 30, desc: stock.metrics.peRatio > 30 ? "Expensive valuation vs peers" : "Trading below assumed intrinsic bounds" },
     { label: "ROE vs FD Rates", pass: stock.metrics.roe > 15, desc: stock.metrics.roe > 15 ? "Generates higher return than bank FDs" : "Poor capital efficiency" },
     { label: "Financial Health", pass: stock.metrics.debtEquity < 0.6, desc: stock.metrics.debtEquity < 0.6 ? "Comfortable leverage capacity" : "High debt burden on balance sheet" },
-    { label: "Red Flags", pass: stock.metrics.fScore >= 5, desc: stock.metrics.fScore >= 5 ? "Strong financial strength (F-Score)" : "Weak financial strength (F-Score)" },
+    {
+      label: "Red Flags",
+      pass: stock.metrics.fScore == null ? null : stock.metrics.fScore >= 5,
+      desc: stock.metrics.fScore == null
+        ? "Not enough statement history to compute a Piotroski F-Score for this ticker"
+        : stock.metrics.fScore >= 5 ? "Strong financial strength (F-Score)" : "Weak financial strength (F-Score)",
+    },
   ];
 
   const containerVars = {
@@ -226,8 +232,18 @@ export function StockDetail() {
                 <FundamentalBox label="Debt to Equity" value={`${stock.metrics.debtEquity.toFixed(2)}`} sub={`${stock.metrics.debtEquity > 0.5 ? 'High' : 'Optimal'}`} />
                 <FundamentalBox label="ROE" value={`${stock.metrics.roe.toFixed(2)}%`} sub="Return on Eq" isPercent />
                 <FundamentalBox label="ROCE" value="N/A" sub="No capital-employed feed" />
-                <FundamentalBox label="Piotroski Score" value={`${stock.metrics.fScore} / 9`} sub="Financial Health" highlight={stock.metrics.fScore >= 7} />
-                <FundamentalBox label="CFO / PAT" value={`${stock.metrics.cfoPat.toFixed(2)}x`} sub="Cash Conversion" highlight={stock.metrics.cfoPat > 1} />
+                <FundamentalBox
+                  label="Piotroski Score"
+                  value={stock.metrics.fScore == null ? "N/A" : `${Number.isInteger(stock.metrics.fScore) ? stock.metrics.fScore : stock.metrics.fScore.toFixed(1)} / 9`}
+                  sub={stock.metrics.fScore == null ? "Insufficient statement history" : "Financial Health"}
+                  highlight={stock.metrics.fScore != null && stock.metrics.fScore >= 7}
+                />
+                <FundamentalBox
+                  label="CFO / PAT"
+                  value={stock.metrics.cfoPat == null ? "N/A" : `${stock.metrics.cfoPat.toFixed(2)}x`}
+                  sub={stock.metrics.cfoPat == null ? "Cash flow data unavailable" : "Cash Conversion"}
+                  highlight={stock.metrics.cfoPat != null && stock.metrics.cfoPat > 1}
+                />
                 <FundamentalBox label="Sales Growth" value={`${stock.metrics.salesGrowth.toFixed(2)}%`} sub="5Y CAGR" isPercent />
                 <FundamentalBox label="EPS Growth" value={`${stock.metrics.epsGrowth.toFixed(2)}%`} sub="5Y CAGR" isPercent />
                 <FundamentalBox label="Promoter Pvg" value={`${stock.metrics.pledge}%`} sub="Pledged holdings" />
@@ -314,8 +330,8 @@ export function StockDetail() {
             <div className="space-y-5">
               {checks.map((check, idx) => (
                 <div key={idx} className="flex gap-4 items-start group">
-                  <div className={`mt-0.5 p-1.5 rounded bg-black/50 border shadow-inner transition-colors ${check.pass ? 'border-green-500/30 text-green-400 group-hover:bg-green-500/10 group-hover:border-green-500/50' : 'border-red-500/30 text-red-500 group-hover:bg-red-500/10 group-hover:border-red-500/50'}`}>
-                    {check.pass ? <ThumbsUp className="w-4 h-4" /> : <ThumbsDown className="w-4 h-4" />}
+                  <div className={`mt-0.5 p-1.5 rounded bg-black/50 border shadow-inner transition-colors ${check.pass === null ? 'border-white/10 text-dim' : check.pass ? 'border-green-500/30 text-green-400 group-hover:bg-green-500/10 group-hover:border-green-500/50' : 'border-red-500/30 text-red-500 group-hover:bg-red-500/10 group-hover:border-red-500/50'}`}>
+                    {check.pass === null ? <span className="block w-4 h-4 text-center text-[10px] font-mono leading-4">?</span> : check.pass ? <ThumbsUp className="w-4 h-4" /> : <ThumbsDown className="w-4 h-4" />}
                   </div>
                   <div>
                      <h4 className="text-sm font-bold text-zinc-100 tracking-wide">{check.label}</h4>
@@ -343,10 +359,9 @@ export function StockDetail() {
           {stock.metrics.roe > 100 
             ? `Cap applied via ROE Decay Spline.` 
             : `Efficiency mapped to structural flooring bounds.`} <br/>
-          {`[\u001b[${stock.metrics.cfoPat < 1.0 ? '33mWARN' : '32mOK'}\u001b[0m] Cash Flow Vector (CFO/PAT: ${stock.metrics.cfoPat}x) \u2192 `}
-          {stock.metrics.cfoPat < 1.0
-            ? `Failed >1.0 threshold. Recursive Penalty applied.`
-            : `Cash flow conversion mapping nominal.`} <br/>
+          {stock.metrics.cfoPat == null
+            ? `[\u001b[33mWARN\u001b[0m] Cash Flow Vector \u2192 CFO/PAT unavailable, factor excluded from composite (weight redistributed).`
+            : `[\u001b[${stock.metrics.cfoPat < 1.0 ? '33mWARN' : '32mOK'}\u001b[0m] Cash Flow Vector (CFO/PAT: ${stock.metrics.cfoPat}x) \u2192 ${stock.metrics.cfoPat < 1.0 ? 'Failed >1.0 threshold. Recursive Penalty applied.' : 'Cash flow conversion mapping nominal.'}`} <br/>
           {`[SYS] Dynamic Regime Weighting applied: [\u001b[36m${stock.regime.toUpperCase()}\u001b[0m] constraints active.`} <br/>
           
           <div className="mt-6 pt-4 border-t border-white/10 text-brand font-bold bg-white/5 px-4 py-3 flex justify-between max-w-lg rounded-sm items-center glow">

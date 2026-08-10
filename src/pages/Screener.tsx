@@ -102,13 +102,17 @@ export function Screener() {
                   <td className="py-3 px-5 text-right font-mono tabular-data text-sm">{formatCurrency(stock.price, stock.ticker)}</td>
                   <td className="py-3 px-5 text-center font-mono font-bold text-xs tabular-data text-brand glow-text">{stock.nexusScore.toFixed(1)}</td>
                   <td className="py-3 px-5 text-center">
-                    {(stock.metrics.fScore >= 5 && stock.metrics.debtEquity < 1.5) ? (
+                    {stock.metrics.fScore == null ? (
+                      <span className="px-2 py-1 bg-white/5 border border-white/10 text-dim text-[9px] uppercase font-mono tracking-widest rounded-sm">N/A</span>
+                    ) : (stock.metrics.fScore >= 5 && stock.metrics.debtEquity < 1.5) ? (
                       <span className="px-2 py-1 bg-green-500/10 border border-green-500/30 text-green-400 text-[9px] uppercase font-mono tracking-widest rounded-sm">PASS</span>
                     ) : (
                       <span className="px-2 py-1 bg-red-500/10 border border-red-500/30 text-red-400 text-[9px] uppercase font-mono tracking-widest rounded-sm">FAIL</span>
                     )}
                   </td>
-                  <td className="py-3 px-5 text-center font-mono text-xs tabular-data text-zinc-300">{stock.metrics.fScore}</td>
+                  <td className="py-3 px-5 text-center font-mono text-xs tabular-data text-zinc-300">
+                    {stock.metrics.fScore == null ? '—' : Number.isInteger(stock.metrics.fScore) ? stock.metrics.fScore : stock.metrics.fScore.toFixed(1)}
+                  </td>
                   <td className="py-3 px-5 text-right font-mono text-xs tabular-data text-zinc-400">{(stock.metrics.peRatio).toFixed(1)}x</td>
                 </tr>
               ))}
