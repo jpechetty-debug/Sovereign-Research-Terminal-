@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
-import { calculateNexusMatrix, deriveRegime } from '../lib/nexusAlphaEngine';
+import { calculateNexusMatrix } from '../lib/nexusAlphaEngine';
 import { MOCK_STOCKS } from '../data/mockData';
 
 type StockData = typeof MOCK_STOCKS[0];
@@ -94,7 +94,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           change: 0,
           marketCap: "Unknown",
           regime: "Unknown",
-          metrics: { mcapCr: 0, pledge: 0, salesGrowth: 0, epsGrowth: 0, roe: 0, cfoPat: null as number | null, fScore: null as number | null, debtEquity: 0, peRatio: 0 },
+          metrics: { mcapCr: 0, pledge: 0, salesGrowth: 0, epsGrowth: 0, roe: 0, cfoPat: null as number | null, fScore: null as number | null, debtEquity: 0, peRatio: 0, fiftyTwoWeekChange: 0, fiftyDayAverage: 0, twoHundredDayAverage: 0 },
           scores: { sales: 0, roe_roce: 0, cfo_pat: 0, valuation: 0, eps: 0, f_score: 0, debt_equity: 0, momentum: 0, sentiment: 0 }
         }));
         setStocks(initializedStocks);
@@ -116,6 +116,23 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       if (!res.ok) throw new Error("API FAILED");
       const { data, vix: liveVix } = await res.json();
       
+      // Calculate current breadth before mapping stocks so we can use the regime for the engine
+      const withLiveData = currentStocks.filter(s => data.some((d: any) => d.ticker === s.ticker));
+      let currentBreadthPct = marketBreadthPct;
+      if (withLiveData.length > 0) {
+        const upCount = withLiveData.filter(s => {
+          const d = data.find((d: any) => d.ticker === s.ticker);
+          return d && d.change > 0;
+        }).length;
+        currentBreadthPct = Math.round((upCount / withLiveData.length) * 100);
+      }
+      
+      const currentMarketRegime = currentBreadthPct === null
+        ? 'Unknown'
+        : currentBreadthPct >= 60 ? 'Bull'
+        : currentBreadthPct <= 40 ? 'Bear'
+        : 'Choppy';
+
       const newStocks = currentStocks.map(stock => {
         const live = data.find((d: any) => d.ticker === stock.ticker);
         if (live) {
@@ -126,12 +143,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
              return cr.toFixed(2) + ' Cr';
           };
 
-          // Regime is now derived from real live momentum + fundamentals
-          // on every scan, instead of a static value baked into the seed
-          // dataset that never changed regardless of actual market action.
           const metrics = live.fundamentals ? { ...stock.metrics, ...live.fundamentals } : stock.metrics;
-          const liveRegime = deriveRegime(live.change || 0, metrics);
-          const matrix = calculateNexusMatrix(metrics, live.change || 0, liveRegime, stock.sector);
+          const matrix = calculateNexusMatrix(metrics, live.change || 0, currentMarketRegime, stock.sector, live.price);
 
           return {
             ...stock,
@@ -139,7 +152,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             price: live.price,
             change: live.change || 0,
             marketCap: live.marketCap ? formatMcap(live.marketCap) : stock.marketCap,
-            regime: liveRegime,
+            regime: currentMarketRegime,
             scores: matrix.scores,
             nexusScore: matrix.nexusScore
           };
@@ -151,13 +164,9 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       setLastScanned(new Date());
       setVix(liveVix ?? null);
 
-      // Real market breadth: % of the universe with a live-fetched stock
-      // trading positive on the day. This replaces the hardcoded
-      // "BULL PHASE" label that never reflected actual market conditions.
-      const withLiveData = newStocks.filter(s => data.some((d: any) => d.ticker === s.ticker));
-      if (withLiveData.length > 0) {
-        const upCount = withLiveData.filter(s => s.change > 0).length;
-        setMarketBreadthPct(Math.round((upCount / withLiveData.length) * 100));
+      // Set the breadth state for the dashboard UI
+      if (currentBreadthPct !== null) {
+        setMarketBreadthPct(currentBreadthPct);
       }
 
       // Evaluate alerts

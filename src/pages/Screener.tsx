@@ -104,7 +104,7 @@ export function Screener() {
                   <td className="py-3 px-5 text-center">
                     {stock.metrics.fScore == null ? (
                       <span className="px-2 py-1 bg-white/5 border border-white/10 text-dim text-[9px] uppercase font-mono tracking-widest rounded-sm">N/A</span>
-                    ) : (stock.metrics.fScore >= 5 && stock.metrics.debtEquity < 1.5) ? (
+                    ) : (stock.metrics.fScore >= 5 && (stock.metrics.debtEquity < 1.5 || stock.sector.includes('Financial') || stock.sector.includes('Bank') || stock.sector.includes('NBFC'))) ? (
                       <span className="px-2 py-1 bg-green-500/10 border border-green-500/30 text-green-400 text-[9px] uppercase font-mono tracking-widest rounded-sm">PASS</span>
                     ) : (
                       <span className="px-2 py-1 bg-red-500/10 border border-red-500/30 text-red-400 text-[9px] uppercase font-mono tracking-widest rounded-sm">FAIL</span>

@@ -83,6 +83,9 @@ async function processFundamentalQueue() {
         fScoreDetail, // full breakdown (criteria pass/fail + dataQuality) for the UI
         debtEquity: fd.debtToEquity ? fd.debtToEquity / 100 : 0.5,
         peRatio: sd.trailingPE || dks.forwardPE || 15,
+        fiftyTwoWeekChange: (dks['52WeekChange'] || 0) * 100,
+        fiftyDayAverage: sd.fiftyDayAverage || 0,
+        twoHundredDayAverage: sd.twoHundredDayAverage || 0
       };
       
       saveFundamentalsCache(ticker, data);

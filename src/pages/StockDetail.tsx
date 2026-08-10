@@ -91,10 +91,12 @@ export function StockDetail() {
   };
 
   // Investment Checklist Generation (Tickertape style)
+  const isFinancial = stock.sector.includes('Financial') || stock.sector.includes('Bank') || stock.sector.includes('NBFC');
+  
   const checks: { label: string; pass: boolean | null; desc: string }[] = [
     { label: "Intrinsic Value", pass: stock.metrics.peRatio > 0 && stock.metrics.peRatio < 30, desc: stock.metrics.peRatio > 30 ? "Expensive valuation vs peers" : "Trading below assumed intrinsic bounds" },
     { label: "ROE vs FD Rates", pass: stock.metrics.roe > 15, desc: stock.metrics.roe > 15 ? "Generates higher return than bank FDs" : "Poor capital efficiency" },
-    { label: "Financial Health", pass: stock.metrics.debtEquity < 0.6, desc: stock.metrics.debtEquity < 0.6 ? "Comfortable leverage capacity" : "High debt burden on balance sheet" },
+    { label: "Financial Health", pass: isFinancial ? null : stock.metrics.debtEquity < 0.6, desc: isFinancial ? "Sector inherently highly leveraged (N/A)" : stock.metrics.debtEquity < 0.6 ? "Comfortable leverage capacity" : "High debt burden on balance sheet" },
     {
       label: "Red Flags",
       pass: stock.metrics.fScore == null ? null : stock.metrics.fScore >= 5,
@@ -228,10 +230,10 @@ export function StockDetail() {
              <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                 <FundamentalBox label="Market Cap" value={stock.marketCap} sub="" />
                 <FundamentalBox label="PE Ratio (TTM)" value={`${stock.metrics.peRatio.toFixed(2)}x`} sub="Current" />
-                <FundamentalBox label="P/B Ratio" value="N/A" sub="No book-value feed" />
-                <FundamentalBox label="Debt to Equity" value={`${stock.metrics.debtEquity.toFixed(2)}`} sub={`${stock.metrics.debtEquity > 0.5 ? 'High' : 'Optimal'}`} />
+                <FundamentalBox label="52W Change" value={`${(stock.metrics.fiftyTwoWeekChange || 0).toFixed(2)}%`} sub="1 Year Return" isPercent />
+                <FundamentalBox label="Debt to Equity" value={isFinancial ? "N/A" : `${stock.metrics.debtEquity.toFixed(2)}`} sub={isFinancial ? "Financial Sector" : `${stock.metrics.debtEquity > 0.5 ? 'High' : 'Optimal'}`} />
                 <FundamentalBox label="ROE" value={`${stock.metrics.roe.toFixed(2)}%`} sub="Return on Eq" isPercent />
-                <FundamentalBox label="ROCE" value="N/A" sub="No capital-employed feed" />
+                <FundamentalBox label="Dist to 50D" value={`${stock.metrics.fiftyDayAverage ? (((stock.price - stock.metrics.fiftyDayAverage) / stock.metrics.fiftyDayAverage) * 100).toFixed(2) : '0.00'}%`} sub="Medium Trend" isPercent />
                 <FundamentalBox
                   label="Piotroski Score"
                   value={stock.metrics.fScore == null ? "N/A" : `${Number.isInteger(stock.metrics.fScore) ? stock.metrics.fScore : stock.metrics.fScore.toFixed(1)} / 9`}
@@ -247,7 +249,7 @@ export function StockDetail() {
                 <FundamentalBox label="Sales Growth" value={`${stock.metrics.salesGrowth.toFixed(2)}%`} sub="5Y CAGR" isPercent />
                 <FundamentalBox label="EPS Growth" value={`${stock.metrics.epsGrowth.toFixed(2)}%`} sub="5Y CAGR" isPercent />
                 <FundamentalBox label="Promoter Pvg" value={`${stock.metrics.pledge}%`} sub="Pledged holdings" />
-                <FundamentalBox label="Enterprise Val" value="Pending" sub="Simulated Data" />
+                <FundamentalBox label="Dist to 200D" value={`${stock.metrics.twoHundredDayAverage ? (((stock.price - stock.metrics.twoHundredDayAverage) / stock.metrics.twoHundredDayAverage) * 100).toFixed(2) : '0.00'}%`} sub="Long Trend" isPercent />
              </div>
           </motion.div>
 

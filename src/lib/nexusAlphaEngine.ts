@@ -1,18 +1,10 @@
-export function deriveRegime(liveChangePercent: number, metrics: { salesGrowth: number; epsGrowth: number }): string {
-  const fundamentalStrength = (metrics.salesGrowth + metrics.epsGrowth) / 2;
-  if (liveChangePercent > 3) return 'Breakout';
-  if (liveChangePercent < -3) return 'Bear';
-  if (liveChangePercent > 0 && fundamentalStrength > 15) return 'Bull';
-  return 'Neutral';
-}
-
 export function sigmoid(x: number, mid: number, steepness: number, invert = false): number {
   const k = invert ? -steepness : steepness;
   const val = 1 / (1 + Math.exp(-k * (x - mid)));
   return Math.max(0, Math.min(100, Math.round(val * 100)));
 }
 
-export function calculateNexusMatrix(metrics: any, liveChange: number, regime: string, sector: string = 'General') {
+export function calculateNexusMatrix(metrics: any, liveChange: number, regime: string, sector: string = 'General', price: number = 0) {
   const sales = sigmoid(metrics.salesGrowth, 15, 0.2); 
   const eps = sigmoid(metrics.epsGrowth, 15, 0.2);     
   const roe_roce = sigmoid(metrics.roe, 15, 0.2);
@@ -22,12 +14,17 @@ export function calculateNexusMatrix(metrics: any, liveChange: number, regime: s
   // case we exclude the factor rather than guessing a value.
   const cfo_pat = metrics.cfoPat != null ? sigmoid(metrics.cfoPat, 1.0, 4.0) : null;
 
+  const isFinancial = sector.includes('Financial') || sector.includes('Bank') || sector.includes('NBFC');
+
   let peMidpoint = 25;
   if (sector.includes('Tech') || sector.includes('IT')) peMidpoint = 35;
   if (sector.includes('Utilities') || sector.includes('Energy')) peMidpoint = 15;
+  if (isFinancial) peMidpoint = 15; // Financials typically have lower P/Es
   
   const valuation = sigmoid(metrics.peRatio === 0 ? 100 : metrics.peRatio, peMidpoint, 0.15, true); 
-  const debt_equity = sigmoid(metrics.debtEquity, 1.0, 3.0, true);
+  
+  // Financials intrinsically run with high leverage, so D/E is not a valid penalty
+  const debt_equity = isFinancial ? null : sigmoid(metrics.debtEquity, 1.0, 3.0, true);
 
   // f_score is now a real Piotroski F-Score computed from multi-year
   // financials (0-9, rescaled if some of the 9 tests were ungradable).
@@ -36,7 +33,21 @@ export function calculateNexusMatrix(metrics: any, liveChange: number, regime: s
   // than defaulted, since a fabricated "average" score is worse than
   // honestly having no opinion.
   const f_score = metrics.fScore != null ? sigmoid(metrics.fScore, 5, 0.8) : null;
-  const momentum = sigmoid(liveChange, 0, 0.5); 
+  
+  // Multi-timeframe Momentum Factor
+  // Combines 1-day change, 52-week change, and distance from 50 & 200 DMAs
+  let momentum = sigmoid(liveChange, 0, 0.5); // Fallback to 1-day momentum
+  
+  if (price > 0 && metrics.fiftyDayAverage && metrics.twoHundredDayAverage) {
+    const dist50 = ((price - metrics.fiftyDayAverage) / metrics.fiftyDayAverage) * 100;
+    const dist200 = ((price - metrics.twoHundredDayAverage) / metrics.twoHundredDayAverage) * 100;
+    const dist52W = metrics.fiftyTwoWeekChange || 0;
+    
+    // Blend the timeframes: 40% intermediate (50 DMA), 40% long-term (200 DMA + 52W), 20% short-term (live)
+    const blendedMomentum = (dist50 * 0.4) + (((dist200 + dist52W)/2) * 0.4) + (liveChange * 0.2);
+    momentum = sigmoid(blendedMomentum, 0, 0.15); // Adjust steepness for blended return
+  }
+  
   const sentiment = 50; 
   const scores = { sales, roe_roce, cfo_pat, valuation, eps, f_score, debt_equity, momentum, sentiment };
 
