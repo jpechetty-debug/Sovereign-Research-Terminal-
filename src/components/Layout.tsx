@@ -43,7 +43,6 @@ export function Layout() {
           
           <NavItem to="/" icon={<Activity className="w-4 h-4" />} label="Dashboard" />
           <NavItem to="/screener" icon={<Crosshair className="w-4 h-4" />} label="Screener" />
-          <NavItem to="/lens" icon={<Layers className="w-4 h-4" />} label="Factor Lens" />
           <NavItem to="/universe" icon={<Box className="w-4 h-4" />} label="Universe" />
         </nav>
 
@@ -206,9 +205,9 @@ export function Layout() {
           <div className="mb-6 p-4 bg-brand/10 border border-brand/30 rounded-sm flex items-start gap-3">
             <span className="text-brand text-sm mt-0.5"><Zap className="w-4 h-4" /></span>
             <div>
-              <h3 className="text-brand font-mono text-xs font-bold uppercase tracking-wider mb-1">Live Institutional Engine Online</h3>
+              <h3 className="text-brand font-mono text-xs font-bold uppercase tracking-wider mb-1">Live Engine — Partial Fundamentals</h3>
               <p className="text-zinc-400 text-xs">
-                Prices, market capitalizations, and fundamental inputs (sales growth, EPS growth, ROE, etc.) are <strong>streamed in real-time</strong> via Yahoo Finance. Scores update dynamically as data propagates.
+                Prices, market cap, sales/EPS growth, ROE, and PE are fetched live via Yahoo Finance and cached (fundamentals refresh every ~12h). <strong>CFO/PAT and F-Score are still fixed placeholder values</strong>, not live data yet. Newly loaded tickers may show blank fundamentals for up to a minute while the background queue fetches them.
               </p>
             </div>
           </div>

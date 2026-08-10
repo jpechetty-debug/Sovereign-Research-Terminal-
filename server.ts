@@ -10,6 +10,7 @@ const QUOTE_CACHE: Record<string, { timestamp: number; data: any }> = {};
 const QUOTE_CACHE_TTL = 10 * 1000; // 10 seconds
 
 const FUNDAMENTAL_CACHE_TTL = 1000 * 60 * 60 * 12; // 12 hours
+const FUNDAMENTAL_FAILURE_TTL = 1000 * 60 * 15; // 15 minutes — retry failed fetches much sooner than successful ones
 
 const fundamentalQueue: string[] = [];
 let isProcessingQueue = false;
@@ -23,7 +24,8 @@ async function processFundamentalQueue() {
     if (!ticker) continue;
     
     const cached = getFundamentalsCache(ticker);
-    if (cached && (Date.now() - cached.timestamp < FUNDAMENTAL_CACHE_TTL)) {
+    const cacheTtl = cached && cached.data === null ? FUNDAMENTAL_FAILURE_TTL : FUNDAMENTAL_CACHE_TTL;
+    if (cached && (Date.now() - cached.timestamp < cacheTtl)) {
       continue;
     }
     
@@ -125,7 +127,8 @@ async function startServer() {
 
         // Background fundamental fetch queueing
         const cachedFund = getFundamentalsCache(t);
-        if (!cachedFund || (now - cachedFund.timestamp > FUNDAMENTAL_CACHE_TTL)) {
+        const fundTtl = cachedFund && cachedFund.data === null ? FUNDAMENTAL_FAILURE_TTL : FUNDAMENTAL_CACHE_TTL;
+        if (!cachedFund || (now - cachedFund.timestamp > fundTtl)) {
            if (!fundamentalQueue.includes(t)) {
               fundamentalQueue.push(t);
            }

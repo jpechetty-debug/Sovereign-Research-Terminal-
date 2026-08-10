@@ -48,7 +48,7 @@ export function Universe() {
     if (!confirm(`Are you sure you want to remove ${ticker} from the universe?`)) return;
     
     try {
-      const res = await fetch(`/api/ticker?ticker=${encodeURIComponent(ticker)}`, {
+      const res = await fetch(`/api/ticker/${encodeURIComponent(ticker)}`, {
         method: 'DELETE',
       });
       
