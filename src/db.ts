@@ -117,7 +117,7 @@ export function removeTicker(ticker: string) {
 }
 
 export function getFundamentalsCache(ticker: string): { data: any, timestamp: number } | null {
-  const row = db.prepare('SELECT data, strftime("%s", updated_at) * 1000 as timestamp FROM fundamentals WHERE ticker = ?').get(ticker) as any;
+  const row = db.prepare("SELECT data, strftime('%s', updated_at) * 1000 as timestamp FROM fundamentals WHERE ticker = ?").get(ticker) as any;
   if (!row) return null;
   return { data: JSON.parse(row.data), timestamp: row.timestamp };
 }
