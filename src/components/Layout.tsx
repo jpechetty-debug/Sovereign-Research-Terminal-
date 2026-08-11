@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { Terminal, Activity, Crosshair, Box, Layers, Clock, Search, Zap, Bell, X } from 'lucide-react';
+import { Terminal, Activity, Crosshair, Box, Layers, Clock, Search, Zap, Bell, X, Briefcase } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { useAppEngine } from '../context/DataContext';
 import { motion, AnimatePresence } from 'motion/react';
@@ -44,6 +44,8 @@ export function Layout() {
           <NavItem to="/" icon={<Activity className="w-4 h-4" />} label="Dashboard" />
           <NavItem to="/screener" icon={<Crosshair className="w-4 h-4" />} label="Screener" />
           <NavItem to="/universe" icon={<Box className="w-4 h-4" />} label="Universe" />
+          <NavItem to="/portfolio" icon={<Briefcase className="w-4 h-4" />} label="Portfolio" />
+          <NavItem to="/backtest" icon={<Layers className="w-4 h-4" />} label="Backtest" />
         </nav>
 
         {/* Status Area */}

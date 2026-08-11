@@ -4,6 +4,7 @@ import { Search, Filter, ArrowUpDown, RefreshCw, Command, Zap, Bell } from 'luci
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { formatCurrency } from '../lib/formatters';
+import { evaluateFormula } from '../lib/formulaParser';
 
 export function Screener() {
   const navigate = useNavigate();
@@ -19,16 +20,25 @@ export function Screener() {
   };
 
   const [searchQuery, setSearchQuery] = useState('');
+  const [formulaQuery, setFormulaQuery] = useState('');
   
   const filteredStocks = useMemo(() => {
-    if (!searchQuery) return stocks;
-    const q = searchQuery.toLowerCase();
-    return stocks.filter(s => 
-      s.ticker.toLowerCase().includes(q) || 
-      s.name.toLowerCase().includes(q) ||
-      s.sector.toLowerCase().includes(q)
-    );
-  }, [stocks, searchQuery]);
+    let result = stocks;
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter(s => 
+        s.ticker.toLowerCase().includes(q) || 
+        s.name.toLowerCase().includes(q) ||
+        s.sector.toLowerCase().includes(q)
+      );
+    }
+    
+    if (formulaQuery.trim()) {
+      result = result.filter(s => evaluateFormula(formulaQuery, { ...s.metrics, nexusScore: s.nexusScore }));
+    }
+    
+    return result;
+  }, [stocks, searchQuery, formulaQuery]);
 
   return (
     <motion.div variants={containerVars} initial="hidden" animate="show" className="space-y-6 h-full flex flex-col">
@@ -58,6 +68,16 @@ export function Screener() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full bg-black/40 border border-white/10 text-brand font-mono text-xs px-10 py-3 rounded-sm focus:outline-none focus:border-brand/50 focus:bg-brand/5 focus:shadow-[0_0_15px_rgba(0,240,255,0.1)] transition-all shadow-inner"
+          />
+        </div>
+        <div className="relative flex-1">
+          <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-brand/70" />
+          <input 
+            type="text" 
+            placeholder="FORMULA FILTER (e.g. peRatio < 20 AND roe > 15)..."
+            value={formulaQuery}
+            onChange={(e) => setFormulaQuery(e.target.value)}
+            className="w-full bg-black/40 border border-white/10 text-zinc-300 font-mono text-xs px-10 py-3 rounded-sm focus:outline-none focus:border-brand/50 transition-all shadow-inner placeholder:text-zinc-600"
           />
         </div>
       </motion.div>

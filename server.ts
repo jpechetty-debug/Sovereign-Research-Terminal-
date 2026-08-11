@@ -2,8 +2,11 @@ import express from 'express';
 import { createServer as createViteServer } from 'vite';
 import path from 'path';
 import YahooFinance from 'yahoo-finance2';
-import { initDB, getUniverse, addTicker, removeTicker, getFundamentalsCache, saveFundamentalsCache } from './src/db';
+import { initDB, getUniverse, addTicker, removeTicker, getFundamentalsCache, saveFundamentalsCache, getPriceHistory, getNotes, addNote, deleteNote, savePriceHistory, saveFundamentalsHistory, getFundamentalsHistory, saveAlphaScore, getHoldings, addHolding, removeHolding, getLatestAiMemo, saveAiMemo, getAlphaScoreHistory, getLatestPriceHistory } from './src/db';
+import { optimizePortfolio, OptimizationMethod } from './src/lib/optimizer';
 import { calculatePiotroskiFScore, type AnnualFundamentalPeriod } from './src/lib/piotroski';
+import { computeTrendsAndCAGR, computeTrailingPEBand } from './src/lib/financialAnalysis';
+import { generateAiMemo } from './src/lib/aiCopilot';
 
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
 
@@ -62,6 +65,11 @@ async function processFundamentalQueue() {
         fScore = piotroski.normalizedScore;
         fScoreDetail = piotroski;
 
+        // Phase 1: Save fundamentals history
+        if (series && series.length > 0) {
+          saveFundamentalsHistory(ticker, series);
+        }
+
         const latest = [...series]
           .filter((p) => p && p.date != null)
           .sort((a, b) => new Date(a.date as any).getTime() - new Date(b.date as any).getTime())
@@ -81,8 +89,8 @@ async function processFundamentalQueue() {
         cfoPat, // real CFO/net-income ratio, or null if statement data unavailable
         fScore, // real 0-9 Piotroski F-Score (rescaled if some tests were ungradable), or null
         fScoreDetail, // full breakdown (criteria pass/fail + dataQuality) for the UI
-        debtEquity: fd.debtToEquity ? fd.debtToEquity / 100 : 0.5,
-        peRatio: sd.trailingPE || dks.forwardPE || 15,
+        debtEquity: fd.debtToEquity != null ? fd.debtToEquity / 100 : null,
+        peRatio: sd.trailingPE != null ? sd.trailingPE : (dks.forwardPE != null ? dks.forwardPE : null),
         fiftyTwoWeekChange: (dks['52WeekChange'] || 0) * 100,
         fiftyDayAverage: sd.fiftyDayAverage || 0,
         twoHundredDayAverage: sd.twoHundredDayAverage || 0
@@ -114,6 +122,17 @@ async function startServer() {
   
   const PORT = Number(process.env.PORT) || 3000;
 
+  // Basic API Key Middleware
+  if (process.env.API_KEY) {
+    app.use('/api', (req, res, next) => {
+      const apiKey = req.headers['x-api-key'] || req.query.api_key;
+      if (apiKey !== process.env.API_KEY) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+      next();
+    });
+  }
+
   // Universe Endpoints
   app.get('/api/universe', (req, res) => {
     try {
@@ -141,6 +160,130 @@ async function startServer() {
       res.json({ success: true });
     } else {
       res.status(500).json({ error: 'Failed to remove ticker' });
+    }
+  });
+
+  // Analysis Endpoints
+  app.get('/api/analysis/:ticker', (req, res) => {
+    try {
+      const ticker = req.params.ticker;
+      const history = getFundamentalsHistory(ticker);
+      const analysis = computeTrendsAndCAGR(history as any);
+      res.json({ success: true, data: analysis });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to compute analysis' });
+    }
+  });
+
+  // Notes Endpoints
+  app.get('/api/notes/:ticker', (req, res) => {
+    try {
+      const notes = getNotes(req.params.ticker);
+      res.json({ data: notes });
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to fetch notes' });
+    }
+  });
+
+  app.post('/api/notes/:ticker', (req, res) => {
+    const { body, tag } = req.body;
+    if (!body) return res.status(400).json({ error: 'Note body is required' });
+    
+    const result = addNote(req.params.ticker, body, tag || 'journal');
+    if (result) {
+      res.json({ success: true, id: result.id });
+    } else {
+      res.status(500).json({ error: 'Failed to add note' });
+    }
+  });
+
+  app.delete('/api/notes/:id', (req, res) => {
+    const success = deleteNote(req.params.id);
+    if (success) {
+      res.json({ success: true });
+    } else {
+      res.status(500).json({ error: 'Failed to remove note' });
+    }
+  });
+
+  // Portfolio Endpoints
+  app.get('/api/portfolio', (req, res) => {
+    try {
+      res.json({ success: true, data: getHoldings() });
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to fetch portfolio' });
+    }
+  });
+
+  app.post('/api/portfolio', (req, res) => {
+    const { ticker, quantity, avgCost } = req.body;
+    if (!ticker || quantity === undefined || avgCost === undefined) {
+      return res.status(400).json({ error: 'Missing portfolio data' });
+    }
+    const success = addHolding(ticker, quantity, avgCost);
+    if (success) {
+      res.json({ success: true });
+    } else {
+      res.status(500).json({ error: 'Failed to add holding' });
+    }
+  });
+
+  app.delete('/api/portfolio/:ticker', (req, res) => {
+    const success = removeHolding(req.params.ticker);
+    if (success) {
+      res.json({ success: true });
+    } else {
+      res.status(500).json({ error: 'Failed to remove holding' });
+    }
+  });
+
+  // AI Copilot Endpoint
+  app.get('/api/ai/memo/:ticker', (req, res) => {
+    try {
+      const memo = getLatestAiMemo(req.params.ticker);
+      if (memo) {
+        res.json({ success: true, data: JSON.parse(memo.memo_json), generated_at: memo.generated_at });
+      } else {
+        res.json({ success: false, data: null });
+      }
+    } catch (err) {
+      res.status(500).json({ error: 'Failed to fetch AI memo' });
+    }
+  });
+
+  app.post('/api/ai/memo/:ticker', async (req, res) => {
+    try {
+      const ticker = req.params.ticker;
+      const { name, sector, price, nexusScore, factorScores } = req.body;
+      
+      const cachedFund = getFundamentalsCache(ticker);
+      if (!cachedFund || !cachedFund.data) {
+        return res.status(400).json({ error: 'Fundamentals not cached for this ticker. Try again later.' });
+      }
+
+      const notes = getNotes(ticker);
+
+      const memo = await generateAiMemo({
+        ticker,
+        name,
+        sector,
+        price,
+        fundamentals: cachedFund.data,
+        nexusScore,
+        factorScores,
+        notes
+      });
+
+      if (memo) {
+        saveAiMemo(ticker, JSON.stringify(memo));
+        res.json({ success: true, data: memo });
+      } else {
+        res.status(500).json({ error: 'AI generation failed' });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to generate AI memo' });
     }
   });
 
@@ -178,6 +321,18 @@ async function startServer() {
               fundamentalQueue.push(t);
            }
         }
+        
+        let trailingPeMidpoint = null;
+        if (cachedFund?.data) {
+           const eps = cachedFund.data.earningsGrowth ? (cachedFund.data.netIncomeToCommon / cachedFund.data.sharesOutstanding) : null;
+           // If we don't have EPS easily available in cache, we fallback
+           // Alternatively we can use priceHistory + fundamental history
+           if (eps) {
+             const ph = getLatestPriceHistory(t, 250); // last 1 year roughly
+             const band = computeTrailingPEBand(ph as any, eps);
+             if (band) trailingPeMidpoint = band;
+           }
+        }
 
         return {
           ticker: q.symbol,
@@ -185,7 +340,7 @@ async function startServer() {
           change: q.regularMarketChangePercent,
           marketCap: q.marketCap,
           volume: q.regularMarketVolume,
-          fundamentals: cachedFund?.data || null
+          fundamentals: cachedFund?.data ? { ...cachedFund.data, trailingPeMidpoint } : null
         };
       }).filter(Boolean);
 
@@ -221,31 +376,163 @@ async function startServer() {
   app.get('/api/history/:ticker', async (req, res) => {
     try {
       const ticker = req.params.ticker;
-      const period2 = new Date();
-      const period1 = new Date();
-      period1.setDate(period1.getDate() - 30);
+      
+      const dbHistory = getPriceHistory(ticker) as any[];
+      const now = new Date();
+      const oneDayMs = 24 * 60 * 60 * 1000;
+      
+      let needsFetch = true;
+      if (dbHistory.length > 0) {
+        const lastDate = new Date(dbHistory[dbHistory.length - 1].date);
+        // If the last date is within 2 days, we consider it fresh enough for this MVP 
+        // (handles weekends naively, but prevents constant fetching)
+        if (now.getTime() - lastDate.getTime() < 2 * oneDayMs) {
+          needsFetch = false;
+        }
+      }
 
-      const result = await yahooFinance.chart(ticker, {
-        period1,
-        period2,
-        interval: '1d'
-      }) as any;
+      if (needsFetch) {
+        const period2 = new Date();
+        const period1 = new Date();
+        // Fetch a bit more than 30 days to be safe if DB is empty, or just 30 days
+        period1.setDate(period1.getDate() - 30);
 
-      const points = (result.quotes || [])
-        .filter((q: any) => q.close != null)
-        .map((q: any) => ({
-          date: new Date(q.date).toISOString().slice(0, 10),
-          price: Number(q.close.toFixed(2))
+        try {
+          const result = await yahooFinance.chart(ticker, {
+            period1,
+            period2,
+            interval: '1d'
+          }) as any;
+
+          const points = (result.quotes || [])
+            .filter((q: any) => q.close != null)
+            .map((q: any) => ({
+              date: new Date(q.date).toISOString().slice(0, 10),
+              price: Number(q.close.toFixed(2)),
+              open: q.open != null ? Number(q.open.toFixed(2)) : undefined,
+              high: q.high != null ? Number(q.high.toFixed(2)) : undefined,
+              low: q.low != null ? Number(q.low.toFixed(2)) : undefined,
+              volume: q.volume
+            }));
+
+          if (points.length > 0) {
+            savePriceHistory(ticker, points);
+          }
+        } catch (fetchErr) {
+          console.error("Yahoo chart fetch failed:", fetchErr);
+          // If fetch fails, we'll just fall back to whatever is in the DB
+        }
+      }
+
+      // Read fresh from DB to ensure we have the combined data
+      const updatedHistory = getPriceHistory(ticker) as any[];
+      
+      // Filter to just the last 30 days for the UI
+      const thirtyDaysAgo = new Date();
+      thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+      const cutoffDate = thirtyDaysAgo.toISOString().slice(0, 10);
+      
+      const recentPoints = updatedHistory
+        .filter(p => p.date >= cutoffDate)
+        .map(p => ({
+          date: p.date,
+          price: p.close
         }));
 
-      if (points.length === 0) {
+      if (recentPoints.length === 0) {
         return res.status(404).json({ error: 'No historical data available' });
       }
 
-      res.json({ data: points });
+      res.json({ data: recentPoints });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'History fetch failed' });
+    }
+  });
+
+  app.post('/api/score-snapshot', (req, res) => {
+    try {
+      const { ticker, nexusScore, factorScores, regime } = req.body;
+      if (!ticker || nexusScore === undefined) {
+        return res.status(400).json({ error: 'Ticker and nexusScore are required' });
+      }
+      
+      const date = new Date().toISOString().slice(0, 10);
+      saveAlphaScore(ticker, date, nexusScore, factorScores || {}, regime || 'Neutral');
+      
+      res.json({ success: true });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Score snapshot failed' });
+    }
+  });
+
+  // --- BACKTESTING ENDPOINT ---
+  app.get('/api/backtest', (req, res) => {
+    try {
+      const history = getAlphaScoreHistory();
+      
+      const forwardReturns = history.map(snapshot => {
+        const prices = getPriceHistory(snapshot.ticker) as { date: string, close: number }[];
+        
+        // Find price on snapshot date
+        const startDateIdx = prices.findIndex(p => p.date >= snapshot.date);
+        
+        let return30 = null;
+        let return90 = null;
+
+        if (startDateIdx !== -1) {
+          const startPrice = prices[startDateIdx].close;
+          
+          // Approximating 30 trading days ~ 42 calendar days
+          // or just look 30 indices ahead
+          const end30Idx = startDateIdx + 21; // roughly 1 month trading days
+          if (end30Idx < prices.length) {
+            return30 = (prices[end30Idx].close - startPrice) / startPrice;
+          }
+
+          const end90Idx = startDateIdx + 63; // roughly 3 months trading days
+          if (end90Idx < prices.length) {
+            return90 = (prices[end90Idx].close - startPrice) / startPrice;
+          }
+        }
+
+        return {
+          ...snapshot,
+          return30,
+          return90
+        };
+      });
+
+      res.json({ data: forwardReturns });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Failed to fetch backtest data' });
+    }
+  });
+
+  // --- PORTFOLIO OPTIMIZE ENDPOINT ---
+  app.post('/api/portfolio/optimize', (req, res) => {
+    try {
+      const { method } = req.body as { method: OptimizationMethod };
+      if (!method) {
+        return res.status(400).json({ error: 'Method is required' });
+      }
+
+      const holdings = getHoldings();
+      const holdingsData = holdings.map(h => {
+        const priceHistory = getPriceHistory(h.ticker) as { date: string, close: number }[];
+        return {
+          ticker: h.ticker,
+          priceHistory
+        };
+      });
+
+      const weights = optimizePortfolio(holdingsData, method);
+      res.json({ weights });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Optimization failed' });
     }
   });
 

@@ -146,6 +146,18 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           const metrics = live.fundamentals ? { ...stock.metrics, ...live.fundamentals } : stock.metrics;
           const matrix = calculateNexusMatrix(metrics, live.change || 0, currentMarketRegime, stock.sector, live.price);
 
+          // Phase 1: Save score snapshot
+          fetch('/api/score-snapshot', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              ticker: stock.ticker,
+              nexusScore: matrix.nexusScore,
+              factorScores: matrix.scores,
+              regime: currentMarketRegime
+            })
+          }).catch(console.error);
+
           return {
             ...stock,
             metrics,

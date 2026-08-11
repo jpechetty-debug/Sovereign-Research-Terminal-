@@ -5,6 +5,8 @@ import { Dashboard } from './pages/Dashboard';
 import { Screener } from './pages/Screener';
 import { StockDetail } from './pages/StockDetail';
 import { Universe } from './pages/Universe';
+import { Portfolio } from './pages/Portfolio';
+import { Backtest } from './pages/Backtest';
 import { DataProvider } from './context/DataContext';
 
 export default function App() {
@@ -16,6 +18,8 @@ export default function App() {
             <Route index element={<Dashboard />} />
             <Route path="screener" element={<Screener />} />
             <Route path="universe" element={<Universe />} />
+            <Route path="portfolio" element={<Portfolio />} />
+            <Route path="backtest" element={<Backtest />} />
             <Route path="stock/:ticker" element={<StockDetail />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>

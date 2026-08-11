@@ -16,10 +16,12 @@ export function calculateNexusMatrix(metrics: any, liveChange: number, regime: s
 
   const isFinancial = sector.includes('Financial') || sector.includes('Bank') || sector.includes('NBFC');
 
-  let peMidpoint = 25;
-  if (sector.includes('Tech') || sector.includes('IT')) peMidpoint = 35;
-  if (sector.includes('Utilities') || sector.includes('Energy')) peMidpoint = 15;
-  if (isFinancial) peMidpoint = 15; // Financials typically have lower P/Es
+  let peMidpoint = metrics.trailingPeMidpoint != null ? metrics.trailingPeMidpoint : 25;
+  if (metrics.trailingPeMidpoint == null) {
+    if (sector.includes('Tech') || sector.includes('IT')) peMidpoint = 35;
+    if (sector.includes('Utilities') || sector.includes('Energy')) peMidpoint = 15;
+    if (isFinancial) peMidpoint = 15; // Financials typically have lower P/Es
+  }
   
   const valuation = sigmoid(metrics.peRatio === 0 ? 100 : metrics.peRatio, peMidpoint, 0.15, true); 
   
