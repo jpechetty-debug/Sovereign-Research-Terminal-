@@ -5,9 +5,9 @@ export function sigmoid(x: number, mid: number, steepness: number, invert = fals
 }
 
 export function calculateNexusMatrix(metrics: any, liveChange: number, regime: string, sector: string = 'General', price: number = 0) {
-  const sales = sigmoid(metrics.salesGrowth, 15, 0.2); 
-  const eps = sigmoid(metrics.epsGrowth, 15, 0.2);     
-  const roe_roce = sigmoid(metrics.roe, 15, 0.2);
+  const sales = metrics.salesGrowth != null ? sigmoid(metrics.salesGrowth, 15, 0.2) : null; 
+  const eps = metrics.epsGrowth != null ? sigmoid(metrics.epsGrowth, 15, 0.2) : null;     
+  const roe_roce = metrics.roe != null ? sigmoid(metrics.roe, 15, 0.2) : null;
   // cfoPat is now a real CFO/net-income ratio pulled from statement history
   // (see server.ts + src/lib/piotroski.ts) and can be `null` when Yahoo
   // doesn't have the underlying cash-flow data for this ticker — in that
@@ -23,10 +23,10 @@ export function calculateNexusMatrix(metrics: any, liveChange: number, regime: s
     if (isFinancial) peMidpoint = 15; // Financials typically have lower P/Es
   }
   
-  const valuation = sigmoid(metrics.peRatio === 0 ? 100 : metrics.peRatio, peMidpoint, 0.15, true); 
+  const valuation = metrics.peRatio != null ? sigmoid(metrics.peRatio === 0 ? 100 : metrics.peRatio, peMidpoint, 0.15, true) : null; 
   
   // Financials intrinsically run with high leverage, so D/E is not a valid penalty
-  const debt_equity = isFinancial ? null : sigmoid(metrics.debtEquity, 1.0, 3.0, true);
+  const debt_equity = isFinancial || metrics.debtEquity == null ? null : sigmoid(metrics.debtEquity, 1.0, 3.0, true);
 
   // f_score is now a real Piotroski F-Score computed from multi-year
   // financials (0-9, rescaled if some of the 9 tests were ungradable).

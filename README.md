@@ -37,6 +37,9 @@ This version introduces a true local backend with an embedded SQLite database, a
 ## Recent Improvements
 
 - **Database Engine**: Replaced static mock arrays with an embedded SQLite database (`terminal.db`).
+- **Data Integrity & AI Wiring**: Fixed strict null-checks in Alpha engine, resolved dead-code in AI Copilot caching (`getLatestAiMemo`), and synchronized UI components (`StockDetail.tsx`) to exactly match backend AI Memo data schema.
+- **Advanced DCF & Risk Metrics**: Fully wired Portfolio Beta, Portfolio Max Drawdown, Operating Cash Flow, and Shares Outstanding directly into the embedded SQLite data layer (`price_history` and `fundamentals_history`).
+- **Graphify Integration**: Repository is now fully indexed as a queryable knowledge graph (see `graphify-out`).
 - **Universe Management UI**: Added a dedicated `/universe` route to seamlessly manage tracked assets.
 - **Persistent Caching**: The engine caches fetched fundamentals for 24 hours, dramatically improving performance for subsequent scans.
 

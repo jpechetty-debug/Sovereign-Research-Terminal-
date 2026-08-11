@@ -60,11 +60,11 @@ export function computeTrendsAndCAGR(history: FundamentalRow[]) {
   };
 }
 
-export function computeTrailingPEBand(priceHistory: { price: number, date: string }[], latestEps: number | null): number | null {
+export function computeTrailingPEBand(priceHistory: { close: number, date: string }[], latestEps: number | null): number | null {
   if (!latestEps || latestEps <= 0 || priceHistory.length === 0) return null;
   
   // Calculate historical P/E ratios for all available price points
-  const peRatios = priceHistory.map(p => p.price / latestEps).filter(pe => pe > 0 && pe < 500); // Sanity bounds
+  const peRatios = priceHistory.map(p => p.close / latestEps).filter(pe => pe > 0 && pe < 500); // Sanity bounds
   
   if (peRatios.length === 0) return null;
 

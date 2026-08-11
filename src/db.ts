@@ -219,7 +219,7 @@ export function saveAlphaScore(ticker: string, date: string, nexusScore: number,
     ON CONFLICT(ticker, date) DO UPDATE SET
       nexus_score=excluded.nexus_score, factor_scores=excluded.factor_scores, regime=excluded.regime
   `);
-  stmt.run(ticker, date, JSON.stringify(factorScores), regime);
+  stmt.run(ticker, date, nexusScore, JSON.stringify(factorScores), regime);
 }
 
 export function getNotes(ticker: string) {
@@ -279,7 +279,7 @@ export function removeHolding(ticker: string) {
 // --- AI MEMOS ---
 
 export function getLatestAiMemo(ticker: string) {
-  return db.prepare('SELECT memo_json, generated_at FROM ai_memos WHERE ticker = ? ORDER BY generated_at DESC LIMIT 1').get() as any | undefined;
+  return db.prepare('SELECT memo_json, generated_at FROM ai_memos WHERE ticker = ? ORDER BY generated_at DESC LIMIT 1').get(ticker) as any | undefined;
 }
 
 export function saveAiMemo(ticker: string, memoJson: string) {

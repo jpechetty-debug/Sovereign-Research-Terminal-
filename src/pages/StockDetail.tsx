@@ -602,21 +602,15 @@ export function StockDetail() {
                 </div>
               </div>
               
-              <div className="bg-white/5 border border-white/10 p-4 rounded-sm">
-                <h4 className="text-[10px] uppercase font-mono tracking-widest text-zinc-500 mb-2">Catalysts</h4>
-                <ul className="list-disc pl-4 space-y-1">
-                  {aiMemo.catalysts.map((cat: string, i: number) => (
-                    <li key={i} className="text-sm text-zinc-300 font-mono">{cat}</li>
-                  ))}
-                </ul>
-              </div>
-              
-              <div className={cn("p-4 rounded-sm border", aiMemo.verdict === 'BULLISH' ? 'bg-green-500/10 border-green-500/30' : aiMemo.verdict === 'BEARISH' ? 'bg-red-500/10 border-red-500/30' : 'bg-yellow-500/10 border-yellow-500/30')}>
-                <div className="flex justify-between items-center mb-2">
-                  <h4 className="text-[10px] uppercase font-mono tracking-widest text-zinc-500">Verdict</h4>
-                  <span className={cn("font-bold font-mono tracking-widest", aiMemo.verdict === 'BULLISH' ? 'text-green-400' : aiMemo.verdict === 'BEARISH' ? 'text-red-400' : 'text-yellow-400')}>{aiMemo.verdict}</span>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-green-500/10 border border-green-500/30 p-4 rounded-sm shadow-inner">
+                  <h4 className="text-[10px] uppercase font-mono tracking-widest text-green-400 mb-2">Bull Case</h4>
+                  <p className="text-sm text-zinc-200 font-mono leading-relaxed">{aiMemo.bullCase}</p>
                 </div>
-                <p className="text-sm text-zinc-200 font-mono">{aiMemo.conviction}</p>
+                <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-sm shadow-inner">
+                  <h4 className="text-[10px] uppercase font-mono tracking-widest text-red-400 mb-2">Bear Case</h4>
+                  <p className="text-sm text-zinc-200 font-mono leading-relaxed">{aiMemo.bearCase}</p>
+                </div>
               </div>
             </div>
           )}

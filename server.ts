@@ -93,7 +93,10 @@ async function processFundamentalQueue() {
         peRatio: sd.trailingPE != null ? sd.trailingPE : (dks.forwardPE != null ? dks.forwardPE : null),
         fiftyTwoWeekChange: (dks['52WeekChange'] || 0) * 100,
         fiftyDayAverage: sd.fiftyDayAverage || 0,
-        twoHundredDayAverage: sd.twoHundredDayAverage || 0
+        twoHundredDayAverage: sd.twoHundredDayAverage || 0,
+        operatingCashFlow: fd.operatingCashflow != null ? fd.operatingCashflow : null,
+        sharesOutstanding: dks.sharesOutstanding != null ? dks.sharesOutstanding : null,
+        eps: dks.trailingEps != null ? dks.trailingEps : (dks.forwardEps != null ? dks.forwardEps : null)
       };
       
       saveFundamentalsCache(ticker, data);
@@ -210,8 +213,79 @@ async function startServer() {
   // Portfolio Endpoints
   app.get('/api/portfolio', (req, res) => {
     try {
-      res.json({ success: true, data: getHoldings() });
+      const holdings = getHoldings();
+      
+      let maxDrawdown = 0;
+      let portfolioBeta = 1.0; 
+      
+      if (holdings.length > 0) {
+        const dateMap = new Map<string, number>();
+        holdings.forEach(h => {
+          const history = getPriceHistory(h.ticker) as { date: string, close: number }[];
+          history.forEach(p => {
+            const current = dateMap.get(p.date) || 0;
+            dateMap.set(p.date, current + (p.close * h.quantity));
+          });
+        });
+        
+        const sortedDates = Array.from(dateMap.keys()).sort();
+        const portValues = sortedDates.map(d => dateMap.get(d)!);
+        
+        if (portValues.length > 0) {
+          let peak = portValues[0];
+          let maxDd = 0;
+          for (const val of portValues) {
+            if (val > peak) peak = val;
+            const dd = (val - peak) / peak;
+            if (dd < maxDd) maxDd = dd;
+          }
+          maxDrawdown = maxDd;
+        }
+        
+        const niftyHistory = getPriceHistory('^NSEI') as { date: string, close: number }[];
+        if (niftyHistory && niftyHistory.length > 0 && portValues.length > 1) {
+          const portReturns: number[] = [];
+          const benchReturns: number[] = [];
+          
+          for (let i = 1; i < sortedDates.length; i++) {
+            const date = sortedDates[i];
+            const prevDate = sortedDates[i-1];
+            const prevVal = dateMap.get(prevDate);
+            if (!prevVal) continue;
+            
+            const portRet = (dateMap.get(date)! - prevVal) / prevVal;
+            
+            const benchDay = niftyHistory.find(n => n.date === date);
+            const benchPrev = niftyHistory.find(n => n.date === prevDate);
+            
+            if (benchDay && benchPrev && benchPrev.close > 0) {
+              const benchRet = (benchDay.close - benchPrev.close) / benchPrev.close;
+              portReturns.push(portRet);
+              benchReturns.push(benchRet);
+            }
+          }
+          
+          if (portReturns.length > 0) {
+            const portMean = portReturns.reduce((a, b) => a + b, 0) / portReturns.length;
+            const benchMean = benchReturns.reduce((a, b) => a + b, 0) / benchReturns.length;
+            
+            let covariance = 0;
+            let variance = 0;
+            for (let i = 0; i < portReturns.length; i++) {
+              covariance += (portReturns[i] - portMean) * (benchReturns[i] - benchMean);
+              variance += Math.pow(benchReturns[i] - benchMean, 2);
+            }
+            
+            if (variance > 0) {
+              portfolioBeta = covariance / variance;
+            }
+          }
+        }
+      }
+      
+      res.json({ success: true, data: holdings, maxDrawdown, portfolioBeta });
     } catch (err) {
+      console.error("Portfolio fetch err:", err);
       res.status(500).json({ error: 'Failed to fetch portfolio' });
     }
   });
@@ -324,9 +398,11 @@ async function startServer() {
         
         let trailingPeMidpoint = null;
         if (cachedFund?.data) {
-           const eps = cachedFund.data.earningsGrowth ? (cachedFund.data.netIncomeToCommon / cachedFund.data.sharesOutstanding) : null;
-           // If we don't have EPS easily available in cache, we fallback
-           // Alternatively we can use priceHistory + fundamental history
+           let eps = cachedFund.data.eps;
+           // Fallback to computing from price and PE ratio if missing from defaultKeyStatistics
+           if (!eps && q.regularMarketPrice && cachedFund.data.peRatio) {
+             eps = q.regularMarketPrice / cachedFund.data.peRatio;
+           }
            if (eps) {
              const ph = getLatestPriceHistory(t, 250); // last 1 year roughly
              const band = computeTrailingPEBand(ph as any, eps);

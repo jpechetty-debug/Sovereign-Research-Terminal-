@@ -18,6 +18,9 @@ export function Portfolio() {
   const { stocks } = useAppEngine();
   const [holdings, setHoldings] = useState<Holding[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  
+  const [portfolioBeta, setPortfolioBeta] = useState<number>(1.05);
+  const [maxDrawdown, setMaxDrawdown] = useState<number>(-0.15);
 
   const [newTicker, setNewTicker] = useState('');
   const [newQty, setNewQty] = useState('');
@@ -33,6 +36,8 @@ export function Portfolio() {
       if (res.ok) {
         const json = await res.json();
         setHoldings(json.data);
+        if (json.portfolioBeta !== undefined) setPortfolioBeta(json.portfolioBeta);
+        if (json.maxDrawdown !== undefined) setMaxDrawdown(json.maxDrawdown);
       }
     } catch (e) {
       console.error(e);
@@ -128,10 +133,7 @@ export function Portfolio() {
     return Array.from(map.entries()).map(([name, value]) => ({ name, value })).filter(d => d.value > 0);
   }, [enrichedHoldings]);
 
-  // Very simplified risk metric placeholers (to avoid making 20 sequential API calls on mount)
-  // In a full production app, we'd fetch price_history for each and compute real beta vs NIFTY.
-  const portfolioBeta = 1.05; // Placeholder
-  const maxDrawdown = -0.15; // Placeholder
+  // Beta and max drawdown are now dynamically computed from price_history by the backend
 
   const containerVars = { hidden: { opacity: 0 }, show: { opacity: 1, transition: { staggerChildren: 0.1 } } };
   const itemVars = { hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } };

@@ -1,7 +1,7 @@
 # Graph Report - sovereign-research-terminal-v3  (2026-08-11)
 
 ## Corpus Check
-- 25 files · ~21,213 words
+- 25 files · ~21,519 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `ff2829b5`
+- Built from commit: `05e2c98b`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -96,11 +96,11 @@ Nodes (3): AnnualFundamentalPeriod, PiotroskiCriterion, PiotroskiResult
 
 ### Community 9 - "Community 9"
 Cohesion: 0.47
-Nodes (4): formatCurrency(), COLORS, Holding, Portfolio()
+Nodes (3): calculateDCF(), calculateReverseDCF(), FinancialsView()
 
 ### Community 10 - "Community 10"
 Cohesion: 0.47
-Nodes (3): calculateDCF(), calculateReverseDCF(), FinancialsView()
+Nodes (4): formatCurrency(), COLORS, Holding, Portfolio()
 
 ### Community 11 - "Community 11"
 Cohesion: 0.4
