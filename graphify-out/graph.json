@@ -1,0 +1,3337 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "server.ts",
+      "file_type": "code",
+      "source_file": "server.ts",
+      "source_location": "L1",
+      "id": "server_ts",
+      "community": 0,
+      "norm_label": "server.ts"
+    },
+    {
+      "label": "yahooFinance",
+      "file_type": "code",
+      "source_file": "server.ts",
+      "source_location": "L11",
+      "id": "sovereign_research_terminal_v3_server_yahoofinance",
+      "community": 0,
+      "norm_label": "yahoofinance"
+    },
+    {
+      "label": "QUOTE_CACHE",
+      "file_type": "code",
+      "source_file": "server.ts",
+      "source_location": "L13",
+      "id": "sovereign_research_terminal_v3_server_quote_cache",
+      "community": 0,
+      "norm_label": "quote_cache"
+    },
+    {
+      "label": "fundamentalQueue",
+      "file_type": "code",
+      "source_file": "server.ts",
+      "source_location": "L19",
+      "id": "sovereign_research_terminal_v3_server_fundamentalqueue",
+      "community": 0,
+      "norm_label": "fundamentalqueue"
+    },
+    {
+      "label": "processFundamentalQueue()",
+      "file_type": "code",
+      "source_file": "server.ts",
+      "source_location": "L22",
+      "id": "sovereign_research_terminal_v3_server_processfundamentalqueue",
+      "community": 13,
+      "norm_label": "processfundamentalqueue()"
+    },
+    {
+      "label": "startServer()",
+      "file_type": "code",
+      "source_file": "server.ts",
+      "source_location": "L116",
+      "id": "sovereign_research_terminal_v3_server_startserver",
+      "community": 4,
+      "norm_label": "startserver()"
+    },
+    {
+      "label": "vite.config.ts",
+      "file_type": "code",
+      "source_file": "vite.config.ts",
+      "source_location": "L1",
+      "id": "vite_config_ts",
+      "community": 15,
+      "norm_label": "vite.config.ts"
+    },
+    {
+      "label": "env",
+      "file_type": "code",
+      "source_file": "vite.config.ts",
+      "source_location": "L7",
+      "id": "sovereign_research_terminal_v3_vite_config_env",
+      "community": 15,
+      "norm_label": "env"
+    },
+    {
+      "label": "backfill-history.ts",
+      "file_type": "code",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L1",
+      "id": "scripts_backfill_history_ts",
+      "community": 4,
+      "norm_label": "backfill-history.ts"
+    },
+    {
+      "label": "yahooFinance",
+      "file_type": "code",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L5",
+      "id": "scripts_backfill_history_yahoofinance",
+      "community": 4,
+      "norm_label": "yahoofinance"
+    },
+    {
+      "label": "backfill()",
+      "file_type": "code",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L7",
+      "id": "scripts_backfill_history_backfill",
+      "community": 4,
+      "norm_label": "backfill()"
+    },
+    {
+      "label": "App.tsx",
+      "file_type": "code",
+      "source_file": "src/App.tsx",
+      "source_location": "L1",
+      "id": "src_app_tsx",
+      "community": 6,
+      "norm_label": "app.tsx"
+    },
+    {
+      "label": "App()",
+      "file_type": "code",
+      "source_file": "src/App.tsx",
+      "source_location": "L12",
+      "id": "src_app_app",
+      "community": 6,
+      "norm_label": "app()"
+    },
+    {
+      "label": "db.ts",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L1",
+      "id": "src_db_ts",
+      "community": 0,
+      "norm_label": "db.ts"
+    },
+    {
+      "label": "dbPath",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L6",
+      "id": "src_db_dbpath",
+      "community": 0,
+      "norm_label": "dbpath"
+    },
+    {
+      "label": "db",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L7",
+      "id": "src_db_db",
+      "community": 0,
+      "norm_label": "db"
+    },
+    {
+      "label": "initDB()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L13",
+      "id": "src_db_initdb",
+      "community": 4,
+      "norm_label": "initdb()"
+    },
+    {
+      "label": "getUniverse()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L90",
+      "id": "src_db_getuniverse",
+      "community": 4,
+      "norm_label": "getuniverse()"
+    },
+    {
+      "label": "addTicker()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L94",
+      "id": "src_db_addticker",
+      "community": 0,
+      "norm_label": "addticker()"
+    },
+    {
+      "label": "removeTicker()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L105",
+      "id": "src_db_removeticker",
+      "community": 0,
+      "norm_label": "removeticker()"
+    },
+    {
+      "label": "getFundamentalsCache()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L119",
+      "id": "src_db_getfundamentalscache",
+      "community": 13,
+      "norm_label": "getfundamentalscache()"
+    },
+    {
+      "label": "saveFundamentalsCache()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L125",
+      "id": "src_db_savefundamentalscache",
+      "community": 13,
+      "norm_label": "savefundamentalscache()"
+    },
+    {
+      "label": "saveFundamentalsHistory()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L136",
+      "id": "src_db_savefundamentalshistory",
+      "community": 4,
+      "norm_label": "savefundamentalshistory()"
+    },
+    {
+      "label": "savePriceHistory()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L178",
+      "id": "src_db_savepricehistory",
+      "community": 4,
+      "norm_label": "savepricehistory()"
+    },
+    {
+      "label": "getPriceHistory()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L203",
+      "id": "src_db_getpricehistory",
+      "community": 0,
+      "norm_label": "getpricehistory()"
+    },
+    {
+      "label": "getLatestPriceHistory()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L207",
+      "id": "src_db_getlatestpricehistory",
+      "community": 0,
+      "norm_label": "getlatestpricehistory()"
+    },
+    {
+      "label": "getFundamentalsHistory()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L211",
+      "id": "src_db_getfundamentalshistory",
+      "community": 0,
+      "norm_label": "getfundamentalshistory()"
+    },
+    {
+      "label": "saveAlphaScore()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L215",
+      "id": "src_db_savealphascore",
+      "community": 0,
+      "norm_label": "savealphascore()"
+    },
+    {
+      "label": "getNotes()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L225",
+      "id": "src_db_getnotes",
+      "community": 0,
+      "norm_label": "getnotes()"
+    },
+    {
+      "label": "addNote()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L229",
+      "id": "src_db_addnote",
+      "community": 0,
+      "norm_label": "addnote()"
+    },
+    {
+      "label": "deleteNote()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L240",
+      "id": "src_db_deletenote",
+      "community": 0,
+      "norm_label": "deletenote()"
+    },
+    {
+      "label": "getHoldings()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L253",
+      "id": "src_db_getholdings",
+      "community": 0,
+      "norm_label": "getholdings()"
+    },
+    {
+      "label": "addHolding()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L257",
+      "id": "src_db_addholding",
+      "community": 0,
+      "norm_label": "addholding()"
+    },
+    {
+      "label": "removeHolding()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L268",
+      "id": "src_db_removeholding",
+      "community": 0,
+      "norm_label": "removeholding()"
+    },
+    {
+      "label": "getLatestAiMemo()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L281",
+      "id": "src_db_getlatestaimemo",
+      "community": 0,
+      "norm_label": "getlatestaimemo()"
+    },
+    {
+      "label": "saveAiMemo()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L285",
+      "id": "src_db_saveaimemo",
+      "community": 0,
+      "norm_label": "saveaimemo()"
+    },
+    {
+      "label": "getAlphaScoreHistory()",
+      "file_type": "code",
+      "source_file": "src/db.ts",
+      "source_location": "L298",
+      "id": "src_db_getalphascorehistory",
+      "community": 0,
+      "norm_label": "getalphascorehistory()"
+    },
+    {
+      "label": "main.tsx",
+      "file_type": "code",
+      "source_file": "src/main.tsx",
+      "source_location": "L1",
+      "id": "src_main_tsx",
+      "community": 6,
+      "norm_label": "main.tsx"
+    },
+    {
+      "label": "Layout.tsx",
+      "file_type": "code",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L1",
+      "id": "src_components_layout_tsx",
+      "community": 2,
+      "norm_label": "layout.tsx"
+    },
+    {
+      "label": "Layout()",
+      "file_type": "code",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L9",
+      "id": "components_layout_layout",
+      "community": 2,
+      "norm_label": "layout()"
+    },
+    {
+      "label": "NavItem()",
+      "file_type": "code",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L223",
+      "id": "components_layout_navitem",
+      "community": 2,
+      "norm_label": "navitem()"
+    },
+    {
+      "label": "DataContext.tsx",
+      "file_type": "code",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L1",
+      "id": "src_context_datacontext_tsx",
+      "community": 1,
+      "norm_label": "datacontext.tsx"
+    },
+    {
+      "label": "StockData",
+      "file_type": "code",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L5",
+      "id": "context_datacontext_stockdata",
+      "community": 1,
+      "norm_label": "stockdata"
+    },
+    {
+      "label": "PriceAlert",
+      "file_type": "code",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L7",
+      "id": "context_datacontext_pricealert",
+      "community": 1,
+      "norm_label": "pricealert"
+    },
+    {
+      "label": "VixData",
+      "file_type": "code",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L16",
+      "id": "context_datacontext_vixdata",
+      "community": 1,
+      "norm_label": "vixdata"
+    },
+    {
+      "label": "DataContextType",
+      "file_type": "code",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L21",
+      "id": "context_datacontext_datacontexttype",
+      "community": 1,
+      "norm_label": "datacontexttype"
+    },
+    {
+      "label": "DataContext",
+      "file_type": "code",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L39",
+      "id": "context_datacontext_datacontext",
+      "community": 1,
+      "norm_label": "datacontext"
+    },
+    {
+      "label": "DataProvider()",
+      "file_type": "code",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L41",
+      "id": "context_datacontext_dataprovider",
+      "community": 6,
+      "norm_label": "dataprovider()"
+    },
+    {
+      "label": "useAppEngine()",
+      "file_type": "code",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L255",
+      "id": "context_datacontext_useappengine",
+      "community": 2,
+      "norm_label": "useappengine()"
+    },
+    {
+      "label": "mockData.ts",
+      "file_type": "code",
+      "source_file": "src/data/mockData.ts",
+      "source_location": "L1",
+      "id": "src_data_mockdata_ts",
+      "community": 1,
+      "norm_label": "mockdata.ts"
+    },
+    {
+      "label": "MOCK_STOCKS",
+      "file_type": "code",
+      "source_file": "src/data/mockData.ts",
+      "source_location": "L1",
+      "id": "data_mockdata_mock_stocks",
+      "community": 1,
+      "norm_label": "mock_stocks"
+    },
+    {
+      "label": "aiCopilot.ts",
+      "file_type": "code",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L1",
+      "id": "src_lib_aicopilot_ts",
+      "community": 11,
+      "norm_label": "aicopilot.ts"
+    },
+    {
+      "label": "ai",
+      "file_type": "code",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L5",
+      "id": "lib_aicopilot_ai",
+      "community": 11,
+      "norm_label": "ai"
+    },
+    {
+      "label": "CopilotInputs",
+      "file_type": "code",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L7",
+      "id": "lib_aicopilot_copilotinputs",
+      "community": 11,
+      "norm_label": "copilotinputs"
+    },
+    {
+      "label": "CopilotMemo",
+      "file_type": "code",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L18",
+      "id": "lib_aicopilot_copilotmemo",
+      "community": 11,
+      "norm_label": "copilotmemo"
+    },
+    {
+      "label": "generateAiMemo()",
+      "file_type": "code",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L25",
+      "id": "lib_aicopilot_generateaimemo",
+      "community": 11,
+      "norm_label": "generateaimemo()"
+    },
+    {
+      "label": "dcf.ts",
+      "file_type": "code",
+      "source_file": "src/lib/dcf.ts",
+      "source_location": "L1",
+      "id": "src_lib_dcf_ts",
+      "community": 10,
+      "norm_label": "dcf.ts"
+    },
+    {
+      "label": "calculateDCF()",
+      "file_type": "code",
+      "source_file": "src/lib/dcf.ts",
+      "source_location": "L1",
+      "id": "lib_dcf_calculatedcf",
+      "community": 10,
+      "norm_label": "calculatedcf()"
+    },
+    {
+      "label": "calculateReverseDCF()",
+      "file_type": "code",
+      "source_file": "src/lib/dcf.ts",
+      "source_location": "L36",
+      "id": "lib_dcf_calculatereversedcf",
+      "community": 10,
+      "norm_label": "calculatereversedcf()"
+    },
+    {
+      "label": "financialAnalysis.ts",
+      "file_type": "code",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L1",
+      "id": "src_lib_financialanalysis_ts",
+      "community": 7,
+      "norm_label": "financialanalysis.ts"
+    },
+    {
+      "label": "FundamentalRow",
+      "file_type": "code",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L1",
+      "id": "lib_financialanalysis_fundamentalrow",
+      "community": 7,
+      "norm_label": "fundamentalrow"
+    },
+    {
+      "label": "computeCAGR()",
+      "file_type": "code",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L9",
+      "id": "lib_financialanalysis_computecagr",
+      "community": 7,
+      "norm_label": "computecagr()"
+    },
+    {
+      "label": "computeMarginTrends()",
+      "file_type": "code",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L14",
+      "id": "lib_financialanalysis_computemargintrends",
+      "community": 7,
+      "norm_label": "computemargintrends()"
+    },
+    {
+      "label": "computeTrendsAndCAGR()",
+      "file_type": "code",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L29",
+      "id": "lib_financialanalysis_computetrendsandcagr",
+      "community": 7,
+      "norm_label": "computetrendsandcagr()"
+    },
+    {
+      "label": "computeTrailingPEBand()",
+      "file_type": "code",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L63",
+      "id": "lib_financialanalysis_computetrailingpeband",
+      "community": 7,
+      "norm_label": "computetrailingpeband()"
+    },
+    {
+      "label": "formatters.ts",
+      "file_type": "code",
+      "source_file": "src/lib/formatters.ts",
+      "source_location": "L1",
+      "id": "src_lib_formatters_ts",
+      "community": 9,
+      "norm_label": "formatters.ts"
+    },
+    {
+      "label": "formatCurrency()",
+      "file_type": "code",
+      "source_file": "src/lib/formatters.ts",
+      "source_location": "L1",
+      "id": "lib_formatters_formatcurrency",
+      "community": 9,
+      "norm_label": "formatcurrency()"
+    },
+    {
+      "label": "formulaParser.ts",
+      "file_type": "code",
+      "source_file": "src/lib/formulaParser.ts",
+      "source_location": "L1",
+      "id": "src_lib_formulaparser_ts",
+      "community": 12,
+      "norm_label": "formulaparser.ts"
+    },
+    {
+      "label": "evaluateFormula()",
+      "file_type": "code",
+      "source_file": "src/lib/formulaParser.ts",
+      "source_location": "L5",
+      "id": "lib_formulaparser_evaluateformula",
+      "community": 12,
+      "norm_label": "evaluateformula()"
+    },
+    {
+      "label": "evaluateCondition()",
+      "file_type": "code",
+      "source_file": "src/lib/formulaParser.ts",
+      "source_location": "L36",
+      "id": "lib_formulaparser_evaluatecondition",
+      "community": 12,
+      "norm_label": "evaluatecondition()"
+    },
+    {
+      "label": "nexusAlphaEngine.ts",
+      "file_type": "code",
+      "source_file": "src/lib/nexusAlphaEngine.ts",
+      "source_location": "L1",
+      "id": "src_lib_nexusalphaengine_ts",
+      "community": 1,
+      "norm_label": "nexusalphaengine.ts"
+    },
+    {
+      "label": "sigmoid()",
+      "file_type": "code",
+      "source_file": "src/lib/nexusAlphaEngine.ts",
+      "source_location": "L1",
+      "id": "lib_nexusalphaengine_sigmoid",
+      "community": 1,
+      "norm_label": "sigmoid()"
+    },
+    {
+      "label": "calculateNexusMatrix()",
+      "file_type": "code",
+      "source_file": "src/lib/nexusAlphaEngine.ts",
+      "source_location": "L7",
+      "id": "lib_nexusalphaengine_calculatenexusmatrix",
+      "community": 1,
+      "norm_label": "calculatenexusmatrix()"
+    },
+    {
+      "label": "optimizer.ts",
+      "file_type": "code",
+      "source_file": "src/lib/optimizer.ts",
+      "source_location": "L1",
+      "id": "src_lib_optimizer_ts",
+      "community": 14,
+      "norm_label": "optimizer.ts"
+    },
+    {
+      "label": "OptimizationMethod",
+      "file_type": "code",
+      "source_file": "src/lib/optimizer.ts",
+      "source_location": "L1",
+      "id": "lib_optimizer_optimizationmethod",
+      "community": 14,
+      "norm_label": "optimizationmethod"
+    },
+    {
+      "label": "HoldingData",
+      "file_type": "code",
+      "source_file": "src/lib/optimizer.ts",
+      "source_location": "L3",
+      "id": "lib_optimizer_holdingdata",
+      "community": 14,
+      "norm_label": "holdingdata"
+    },
+    {
+      "label": "optimizePortfolio()",
+      "file_type": "code",
+      "source_file": "src/lib/optimizer.ts",
+      "source_location": "L8",
+      "id": "lib_optimizer_optimizeportfolio",
+      "community": 14,
+      "norm_label": "optimizeportfolio()"
+    },
+    {
+      "label": "piotroski.ts",
+      "file_type": "code",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L1",
+      "id": "src_lib_piotroski_ts",
+      "community": 8,
+      "norm_label": "piotroski.ts"
+    },
+    {
+      "label": "AnnualFundamentalPeriod",
+      "file_type": "code",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L24",
+      "id": "lib_piotroski_annualfundamentalperiod",
+      "community": 8,
+      "norm_label": "annualfundamentalperiod"
+    },
+    {
+      "label": "PiotroskiCriterion",
+      "file_type": "code",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L39",
+      "id": "lib_piotroski_piotroskicriterion",
+      "community": 8,
+      "norm_label": "piotroskicriterion"
+    },
+    {
+      "label": "PiotroskiResult",
+      "file_type": "code",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L47",
+      "id": "lib_piotroski_piotroskiresult",
+      "community": 8,
+      "norm_label": "piotroskiresult"
+    },
+    {
+      "label": "toTime()",
+      "file_type": "code",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L59",
+      "id": "lib_piotroski_totime",
+      "community": 8,
+      "norm_label": "totime()"
+    },
+    {
+      "label": "num()",
+      "file_type": "code",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L63",
+      "id": "lib_piotroski_num",
+      "community": 8,
+      "norm_label": "num()"
+    },
+    {
+      "label": "calculatePiotroskiFScore()",
+      "file_type": "code",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L71",
+      "id": "lib_piotroski_calculatepiotroskifscore",
+      "community": 13,
+      "norm_label": "calculatepiotroskifscore()"
+    },
+    {
+      "label": "utils.ts",
+      "file_type": "code",
+      "source_file": "src/lib/utils.ts",
+      "source_location": "L1",
+      "id": "src_lib_utils_ts",
+      "community": 2,
+      "norm_label": "utils.ts"
+    },
+    {
+      "label": "cn()",
+      "file_type": "code",
+      "source_file": "src/lib/utils.ts",
+      "source_location": "L4",
+      "id": "lib_utils_cn",
+      "community": 2,
+      "norm_label": "cn()"
+    },
+    {
+      "label": "Backtest.tsx",
+      "file_type": "code",
+      "source_file": "src/pages/Backtest.tsx",
+      "source_location": "L1",
+      "id": "src_pages_backtest_tsx",
+      "community": 6,
+      "norm_label": "backtest.tsx"
+    },
+    {
+      "label": "BacktestSnapshot",
+      "file_type": "code",
+      "source_file": "src/pages/Backtest.tsx",
+      "source_location": "L6",
+      "id": "pages_backtest_backtestsnapshot",
+      "community": 6,
+      "norm_label": "backtestsnapshot"
+    },
+    {
+      "label": "Backtest()",
+      "file_type": "code",
+      "source_file": "src/pages/Backtest.tsx",
+      "source_location": "L14",
+      "id": "pages_backtest_backtest",
+      "community": 6,
+      "norm_label": "backtest()"
+    },
+    {
+      "label": "Dashboard.tsx",
+      "file_type": "code",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L1",
+      "id": "src_pages_dashboard_tsx",
+      "community": 5,
+      "norm_label": "dashboard.tsx"
+    },
+    {
+      "label": "GeneratedAlert",
+      "file_type": "code",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L10",
+      "id": "pages_dashboard_generatedalert",
+      "community": 5,
+      "norm_label": "generatedalert"
+    },
+    {
+      "label": "generateAlerts()",
+      "file_type": "code",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L17",
+      "id": "pages_dashboard_generatealerts",
+      "community": 5,
+      "norm_label": "generatealerts()"
+    },
+    {
+      "label": "Dashboard()",
+      "file_type": "code",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L55",
+      "id": "pages_dashboard_dashboard",
+      "community": 5,
+      "norm_label": "dashboard()"
+    },
+    {
+      "label": "DataBite()",
+      "file_type": "code",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L275",
+      "id": "pages_dashboard_databite",
+      "community": 5,
+      "norm_label": "databite()"
+    },
+    {
+      "label": "AlertItemProps",
+      "file_type": "code",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L284",
+      "id": "pages_dashboard_alertitemprops",
+      "community": 5,
+      "norm_label": "alertitemprops"
+    },
+    {
+      "label": "AlertItem()",
+      "file_type": "code",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L293",
+      "id": "pages_dashboard_alertitem",
+      "community": 5,
+      "norm_label": "alertitem()"
+    },
+    {
+      "label": "Portfolio.tsx",
+      "file_type": "code",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L1",
+      "id": "src_pages_portfolio_tsx",
+      "community": 9,
+      "norm_label": "portfolio.tsx"
+    },
+    {
+      "label": "Holding",
+      "file_type": "code",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L8",
+      "id": "pages_portfolio_holding",
+      "community": 9,
+      "norm_label": "holding"
+    },
+    {
+      "label": "COLORS",
+      "file_type": "code",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L15",
+      "id": "pages_portfolio_colors",
+      "community": 9,
+      "norm_label": "colors"
+    },
+    {
+      "label": "Portfolio()",
+      "file_type": "code",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L17",
+      "id": "pages_portfolio_portfolio",
+      "community": 9,
+      "norm_label": "portfolio()"
+    },
+    {
+      "label": "Screener.tsx",
+      "file_type": "code",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L1",
+      "id": "src_pages_screener_tsx",
+      "community": 12,
+      "norm_label": "screener.tsx"
+    },
+    {
+      "label": "Screener()",
+      "file_type": "code",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L9",
+      "id": "pages_screener_screener",
+      "community": 12,
+      "norm_label": "screener()"
+    },
+    {
+      "label": "StockDetail.tsx",
+      "file_type": "code",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L1",
+      "id": "src_pages_stockdetail_tsx",
+      "community": 10,
+      "norm_label": "stockdetail.tsx"
+    },
+    {
+      "label": "StockDetail()",
+      "file_type": "code",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L11",
+      "id": "pages_stockdetail_stockdetail",
+      "community": 2,
+      "norm_label": "stockdetail()"
+    },
+    {
+      "label": "FinancialsView()",
+      "file_type": "code",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L633",
+      "id": "pages_stockdetail_financialsview",
+      "community": 10,
+      "norm_label": "financialsview()"
+    },
+    {
+      "label": "FundamentalBox()",
+      "file_type": "code",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L771",
+      "id": "pages_stockdetail_fundamentalbox",
+      "community": 10,
+      "norm_label": "fundamentalbox()"
+    },
+    {
+      "label": "Universe.tsx",
+      "file_type": "code",
+      "source_file": "src/pages/Universe.tsx",
+      "source_location": "L1",
+      "id": "src_pages_universe_tsx",
+      "community": 2,
+      "norm_label": "universe.tsx"
+    },
+    {
+      "label": "Universe()",
+      "file_type": "code",
+      "source_file": "src/pages/Universe.tsx",
+      "source_location": "L6",
+      "id": "pages_universe_universe",
+      "community": 2,
+      "norm_label": "universe()"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "readme_md",
+      "community": 3,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "Sovereign Research Terminal v3",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L5",
+      "id": "sovereign_research_terminal_v3_readme_sovereign_research_terminal_v3",
+      "community": 3,
+      "norm_label": "sovereign research terminal v3"
+    },
+    {
+      "label": "Key Features",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L10",
+      "id": "sovereign_research_terminal_v3_readme_key_features",
+      "community": 3,
+      "norm_label": "key features"
+    },
+    {
+      "label": "Run Locally",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L18",
+      "id": "sovereign_research_terminal_v3_readme_run_locally",
+      "community": 3,
+      "norm_label": "run locally"
+    },
+    {
+      "label": "code:bash (npm install)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L23",
+      "id": "sovereign_research_terminal_v3_readme_codeblock_1",
+      "community": 3,
+      "norm_label": "code:bash (npm install)"
+    },
+    {
+      "label": "code:bash (cp .env.example .env.local)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L27",
+      "id": "sovereign_research_terminal_v3_readme_codeblock_2",
+      "community": 3,
+      "norm_label": "code:bash (cp .env.example .env.local)"
+    },
+    {
+      "label": "code:bash (npm run dev)",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L32",
+      "id": "sovereign_research_terminal_v3_readme_codeblock_3",
+      "community": 3,
+      "norm_label": "code:bash (npm run dev)"
+    },
+    {
+      "label": "Recent Improvements",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L37",
+      "id": "sovereign_research_terminal_v3_readme_recent_improvements",
+      "community": 3,
+      "norm_label": "recent improvements"
+    },
+    {
+      "label": "Technologies Used",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L43",
+      "id": "sovereign_research_terminal_v3_readme_technologies_used",
+      "community": 3,
+      "norm_label": "technologies used"
+    }
+  ],
+  "links": [
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_initdb",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getuniverse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_addticker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_removeticker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getfundamentalscache",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_savefundamentalscache",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getpricehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getnotes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_addnote",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_deletenote",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_savepricehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_savefundamentalshistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getfundamentalshistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_savealphascore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getholdings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_addholding",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_removeholding",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getlatestaimemo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_saveaimemo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getalphascorehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_db_getlatestpricehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_lib_optimizer_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "lib_optimizer_optimizeportfolio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "lib_optimizer_optimizationmethod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_lib_piotroski_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "lib_piotroski_calculatepiotroskifscore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "lib_piotroski_annualfundamentalperiod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_lib_financialanalysis_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "lib_financialanalysis_computetrendsandcagr",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "lib_financialanalysis_computetrailingpeband",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "src_lib_aicopilot_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "lib_aicopilot_generateaimemo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "sovereign_research_terminal_v3_server_yahoofinance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "sovereign_research_terminal_v3_server_quote_cache",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L19",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "sovereign_research_terminal_v3_server_fundamentalqueue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L22",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "sovereign_research_terminal_v3_server_processfundamentalqueue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "server.ts",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "server_ts",
+      "target": "sovereign_research_terminal_v3_server_startserver",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_server_processfundamentalqueue",
+      "target": "src_db_getfundamentalscache"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server.ts",
+      "source_location": "L64",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_server_processfundamentalqueue",
+      "target": "lib_piotroski_calculatepiotroskifscore"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server.ts",
+      "source_location": "L70",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_server_processfundamentalqueue",
+      "target": "src_db_savefundamentalshistory"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server.ts",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_server_processfundamentalqueue",
+      "target": "src_db_savefundamentalscache"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "server.ts",
+      "source_location": "L118",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_server_startserver",
+      "target": "src_db_initdb"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "vite.config.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "vite_config_ts",
+      "target": "sovereign_research_terminal_v3_vite_config_env",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "src_db_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "src_db_initdb",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "src_db_getuniverse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "src_db_savefundamentalshistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "src_db_savepricehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "src_lib_piotroski_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "lib_piotroski_annualfundamentalperiod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "scripts_backfill_history_yahoofinance",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_ts",
+      "target": "scripts_backfill_history_backfill",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_backfill",
+      "target": "src_db_initdb"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_backfill",
+      "target": "src_db_getuniverse"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L30",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_backfill",
+      "target": "src_db_savefundamentalshistory"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "scripts/backfill-history.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "scripts_backfill_history_backfill",
+      "target": "src_db_savepricehistory"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_components_layout_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "components_layout_layout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_pages_dashboard_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "pages_dashboard_dashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_pages_screener_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "pages_screener_screener",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_pages_stockdetail_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "pages_stockdetail_stockdetail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_pages_universe_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "pages_universe_universe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_pages_portfolio_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "pages_portfolio_portfolio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_pages_backtest_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "pages_backtest_backtest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_context_datacontext_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "context_datacontext_dataprovider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/App.tsx",
+      "source_location": "L12",
+      "weight": 1.0,
+      "source": "src_app_tsx",
+      "target": "src_app_app",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/main.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_main_tsx",
+      "target": "src_app_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_data_mockdata_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "data_mockdata_mock_stocks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_dbpath",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_db",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L13",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_initdb",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L90",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getuniverse",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L94",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_addticker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L105",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_removeticker",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getfundamentalscache",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L125",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_savefundamentalscache",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L136",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_savefundamentalshistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L178",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_savepricehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L203",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getpricehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L207",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getlatestpricehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L211",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getfundamentalshistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L215",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_savealphascore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L225",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getnotes",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L229",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_addnote",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L240",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_deletenote",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L253",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getholdings",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L257",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_addholding",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L268",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_removeholding",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L281",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getlatestaimemo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L285",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_saveaimemo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/db.ts",
+      "source_location": "L298",
+      "weight": 1.0,
+      "source": "src_db_ts",
+      "target": "src_db_getalphascorehistory",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_components_layout_tsx",
+      "target": "src_lib_utils_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_components_layout_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_components_layout_tsx",
+      "target": "src_context_datacontext_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_components_layout_tsx",
+      "target": "context_datacontext_useappengine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_components_layout_tsx",
+      "target": "src_lib_formatters_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_components_layout_tsx",
+      "target": "lib_formatters_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_components_layout_tsx",
+      "target": "components_layout_layout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L223",
+      "weight": 1.0,
+      "source": "src_components_layout_tsx",
+      "target": "components_layout_navitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "components_layout_layout",
+      "target": "context_datacontext_useappengine"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L114",
+      "weight": 1.0,
+      "source": "components_layout_layout",
+      "target": "lib_utils_cn"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/components/Layout.tsx",
+      "source_location": "L230",
+      "weight": 1.0,
+      "source": "components_layout_navitem",
+      "target": "lib_utils_cn"
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "src_lib_nexusalphaengine_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "lib_nexusalphaengine_calculatenexusmatrix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "src_data_mockdata_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "data_mockdata_mock_stocks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "context_datacontext_stockdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "context_datacontext_pricealert",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L16",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "context_datacontext_vixdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "context_datacontext_datacontexttype",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "context_datacontext_datacontext",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L41",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "context_datacontext_dataprovider",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/context/DataContext.tsx",
+      "source_location": "L255",
+      "weight": 1.0,
+      "source": "src_context_datacontext_tsx",
+      "target": "context_datacontext_useappengine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "src_context_datacontext_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_pages_portfolio_tsx",
+      "target": "src_context_datacontext_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_pages_screener_tsx",
+      "target": "src_context_datacontext_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "src_context_datacontext_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Universe.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_pages_universe_tsx",
+      "target": "src_context_datacontext_tsx",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "context_datacontext_useappengine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_pages_portfolio_tsx",
+      "target": "context_datacontext_useappengine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_pages_screener_tsx",
+      "target": "context_datacontext_useappengine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "context_datacontext_useappengine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Universe.tsx",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "src_pages_universe_tsx",
+      "target": "context_datacontext_useappengine",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L57",
+      "weight": 1.0,
+      "source": "pages_dashboard_dashboard",
+      "target": "context_datacontext_useappengine"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "pages_portfolio_portfolio",
+      "target": "context_datacontext_useappengine"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "pages_screener_screener",
+      "target": "context_datacontext_useappengine"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "pages_stockdetail_stockdetail",
+      "target": "context_datacontext_useappengine"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/Universe.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "pages_universe_universe",
+      "target": "context_datacontext_useappengine"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/data/mockData.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_data_mockdata_ts",
+      "target": "data_mockdata_mock_stocks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_lib_aicopilot_ts",
+      "target": "lib_aicopilot_ai",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_lib_aicopilot_ts",
+      "target": "lib_aicopilot_copilotinputs",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "src_lib_aicopilot_ts",
+      "target": "lib_aicopilot_copilotmemo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/aiCopilot.ts",
+      "source_location": "L25",
+      "weight": 1.0,
+      "source": "src_lib_aicopilot_ts",
+      "target": "lib_aicopilot_generateaimemo",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dcf.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_dcf_ts",
+      "target": "lib_dcf_calculatedcf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/dcf.ts",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "src_lib_dcf_ts",
+      "target": "lib_dcf_calculatereversedcf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "src_lib_dcf_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "lib_dcf_calculatedcf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "lib_dcf_calculatereversedcf",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_financialanalysis_ts",
+      "target": "lib_financialanalysis_fundamentalrow",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_lib_financialanalysis_ts",
+      "target": "lib_financialanalysis_computecagr",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "src_lib_financialanalysis_ts",
+      "target": "lib_financialanalysis_computemargintrends",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L29",
+      "weight": 1.0,
+      "source": "src_lib_financialanalysis_ts",
+      "target": "lib_financialanalysis_computetrendsandcagr",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "src_lib_financialanalysis_ts",
+      "target": "lib_financialanalysis_computetrailingpeband",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L49",
+      "weight": 1.0,
+      "source": "lib_financialanalysis_computetrendsandcagr",
+      "target": "lib_financialanalysis_computecagr",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/financialAnalysis.ts",
+      "source_location": "L34",
+      "weight": 1.0,
+      "source": "lib_financialanalysis_computetrendsandcagr",
+      "target": "lib_financialanalysis_computemargintrends",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/formatters.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_formatters_ts",
+      "target": "lib_formatters_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "src_lib_formatters_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_pages_portfolio_tsx",
+      "target": "src_lib_formatters_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_pages_screener_tsx",
+      "target": "src_lib_formatters_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "src_lib_formatters_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "lib_formatters_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_pages_portfolio_tsx",
+      "target": "lib_formatters_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_pages_screener_tsx",
+      "target": "lib_formatters_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "lib_formatters_formatcurrency",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L237",
+      "weight": 1.0,
+      "source": "pages_portfolio_portfolio",
+      "target": "lib_formatters_formatcurrency"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L257",
+      "weight": 1.0,
+      "source": "pages_stockdetail_stockdetail",
+      "target": "lib_formatters_formatcurrency"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L712",
+      "weight": 1.0,
+      "source": "pages_stockdetail_financialsview",
+      "target": "lib_formatters_formatcurrency"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/formulaParser.ts",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "src_lib_formulaparser_ts",
+      "target": "lib_formulaparser_evaluateformula",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/formulaParser.ts",
+      "source_location": "L36",
+      "weight": 1.0,
+      "source": "src_lib_formulaparser_ts",
+      "target": "lib_formulaparser_evaluatecondition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_pages_screener_tsx",
+      "target": "src_lib_formulaparser_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/formulaParser.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "source": "lib_formulaparser_evaluateformula",
+      "target": "lib_formulaparser_evaluatecondition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_pages_screener_tsx",
+      "target": "lib_formulaparser_evaluateformula",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/nexusAlphaEngine.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_nexusalphaengine_ts",
+      "target": "lib_nexusalphaengine_sigmoid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/nexusAlphaEngine.ts",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_lib_nexusalphaengine_ts",
+      "target": "lib_nexusalphaengine_calculatenexusmatrix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/nexusAlphaEngine.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "lib_nexusalphaengine_calculatenexusmatrix",
+      "target": "lib_nexusalphaengine_sigmoid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/optimizer.ts",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "src_lib_optimizer_ts",
+      "target": "lib_optimizer_optimizationmethod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/optimizer.ts",
+      "source_location": "L3",
+      "weight": 1.0,
+      "source": "src_lib_optimizer_ts",
+      "target": "lib_optimizer_holdingdata",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/optimizer.ts",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "src_lib_optimizer_ts",
+      "target": "lib_optimizer_optimizeportfolio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "source": "src_lib_piotroski_ts",
+      "target": "lib_piotroski_annualfundamentalperiod",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L39",
+      "weight": 1.0,
+      "source": "src_lib_piotroski_ts",
+      "target": "lib_piotroski_piotroskicriterion",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "src_lib_piotroski_ts",
+      "target": "lib_piotroski_piotroskiresult",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "src_lib_piotroski_ts",
+      "target": "lib_piotroski_totime",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L63",
+      "weight": 1.0,
+      "source": "src_lib_piotroski_ts",
+      "target": "lib_piotroski_num",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/piotroski.ts",
+      "source_location": "L71",
+      "weight": 1.0,
+      "source": "src_lib_piotroski_ts",
+      "target": "lib_piotroski_calculatepiotroskifscore",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/lib/utils.ts",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_lib_utils_ts",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "src_lib_utils_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports_from",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Universe.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_pages_universe_tsx",
+      "target": "src_lib_utils_ts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L7",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "imports",
+      "context": "import",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Universe.tsx",
+      "source_location": "L4",
+      "weight": 1.0,
+      "source": "src_pages_universe_tsx",
+      "target": "lib_utils_cn",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L250",
+      "weight": 1.0,
+      "source": "pages_stockdetail_stockdetail",
+      "target": "lib_utils_cn"
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L715",
+      "weight": 1.0,
+      "source": "pages_stockdetail_financialsview",
+      "target": "lib_utils_cn"
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Backtest.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_pages_backtest_tsx",
+      "target": "pages_backtest_backtestsnapshot",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Backtest.tsx",
+      "source_location": "L14",
+      "weight": 1.0,
+      "source": "src_pages_backtest_tsx",
+      "target": "pages_backtest_backtest",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "pages_dashboard_generatedalert",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "pages_dashboard_generatealerts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L55",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "pages_dashboard_dashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L275",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "pages_dashboard_databite",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L284",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "pages_dashboard_alertitemprops",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L293",
+      "weight": 1.0,
+      "source": "src_pages_dashboard_tsx",
+      "target": "pages_dashboard_alertitem",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Dashboard.tsx",
+      "source_location": "L59",
+      "weight": 1.0,
+      "source": "pages_dashboard_dashboard",
+      "target": "pages_dashboard_generatealerts",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L8",
+      "weight": 1.0,
+      "source": "src_pages_portfolio_tsx",
+      "target": "pages_portfolio_holding",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L15",
+      "weight": 1.0,
+      "source": "src_pages_portfolio_tsx",
+      "target": "pages_portfolio_colors",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Portfolio.tsx",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "src_pages_portfolio_tsx",
+      "target": "pages_portfolio_portfolio",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Screener.tsx",
+      "source_location": "L9",
+      "weight": 1.0,
+      "source": "src_pages_screener_tsx",
+      "target": "pages_screener_screener",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "pages_stockdetail_stockdetail",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L633",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "pages_stockdetail_financialsview",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/StockDetail.tsx",
+      "source_location": "L771",
+      "weight": 1.0,
+      "source": "src_pages_stockdetail_tsx",
+      "target": "pages_stockdetail_fundamentalbox",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "src/pages/Universe.tsx",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "src_pages_universe_tsx",
+      "target": "pages_universe_universe",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "readme_md",
+      "target": "sovereign_research_terminal_v3_readme_sovereign_research_terminal_v3",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L10",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_readme_sovereign_research_terminal_v3",
+      "target": "sovereign_research_terminal_v3_readme_key_features",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L18",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_readme_sovereign_research_terminal_v3",
+      "target": "sovereign_research_terminal_v3_readme_run_locally",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L37",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_readme_sovereign_research_terminal_v3",
+      "target": "sovereign_research_terminal_v3_readme_recent_improvements",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L43",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_readme_sovereign_research_terminal_v3",
+      "target": "sovereign_research_terminal_v3_readme_technologies_used",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_readme_run_locally",
+      "target": "sovereign_research_terminal_v3_readme_codeblock_1",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_readme_run_locally",
+      "target": "sovereign_research_terminal_v3_readme_codeblock_2",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L32",
+      "weight": 1.0,
+      "source": "sovereign_research_terminal_v3_readme_run_locally",
+      "target": "sovereign_research_terminal_v3_readme_codeblock_3",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "ff2829b54310ef5bcb462b4a4f9cb7c5890c5917"
+}

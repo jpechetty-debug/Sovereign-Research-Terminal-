@@ -1,0 +1,110 @@
+{
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\server.ts": {
+    "mtime": 1786424249.2326539,
+    "hash": "154531e09bc770e027e2dde990587472"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\vite.config.ts": {
+    "mtime": 1786306622.0,
+    "hash": "0dd811a45b34acbba5ca4acd6c60d218"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\scripts\\backfill-history.ts": {
+    "mtime": 1786416913.0174634,
+    "hash": "9eec838e8b699155e4d0c50cd5892a7f"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\App.tsx": {
+    "mtime": 1786422889.6454484,
+    "hash": "12c203b4e0b7716961abad80565b3b5f"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\db.ts": {
+    "mtime": 1786422755.8926592,
+    "hash": "80e87b83221e754d697146889c63b6c5"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\main.tsx": {
+    "mtime": 1786306622.0,
+    "hash": "2b36426d5ad7e08ef79746aa524f4fb7"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\components\\Layout.tsx": {
+    "mtime": 1786422873.478246,
+    "hash": "6627cd7b0b5fe2a16ba9bcb539dfb2c4"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\context\\DataContext.tsx": {
+    "mtime": 1786416874.3831465,
+    "hash": "a5e2c3e7ad2808f471921e950c99bebd"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\data\\mockData.ts": {
+    "mtime": 1786330000.9106238,
+    "hash": "a55f434fd8682df24fe632ddd144cc58"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\aiCopilot.ts": {
+    "mtime": 1786420578.7850707,
+    "hash": "21ac96010a16d24564bb3fb073f87569"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\dcf.ts": {
+    "mtime": 1786419123.429891,
+    "hash": "21c69118d8c85194aa6f6b4f041cb4ba"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\financialAnalysis.ts": {
+    "mtime": 1786419109.7308009,
+    "hash": "1734de9019134a21791c2c65a7ccbb58"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\formatters.ts": {
+    "mtime": 1786306622.0,
+    "hash": "3d6f38b54c7ff7ff040c1e2ce1e55e44"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\formulaParser.ts": {
+    "mtime": 1786419145.102709,
+    "hash": "4d1f01f1a09b51bb1f3c5f860e3849bc"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\nexusAlphaEngine.ts": {
+    "mtime": 1786419239.7685597,
+    "hash": "5a96f0a3047d195c366dcaaca4d1c772"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\optimizer.ts": {
+    "mtime": 1786422812.7794702,
+    "hash": "5afe0d4f072840dc691ff8c21645978d"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\piotroski.ts": {
+    "mtime": 1786308814.0,
+    "hash": "ea0886c3e422df01f9966bf5f3113488"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\lib\\utils.ts": {
+    "mtime": 1786306622.0,
+    "hash": "8595c2f874aa1ff8c7cc28df2999f354"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\pages\\Backtest.tsx": {
+    "mtime": 1786422998.0504887,
+    "hash": "f09c5c411ab63ef64b2b5baf9155f5fa"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\pages\\Dashboard.tsx": {
+    "mtime": 1786308884.0,
+    "hash": "e698ef1042cb9ef3fbc47d00070e9ede"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\pages\\Portfolio.tsx": {
+    "mtime": 1786423225.9304402,
+    "hash": "71de2b6c6b3bc5e50eee51f8540d132b"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\pages\\Screener.tsx": {
+    "mtime": 1786420243.4012969,
+    "hash": "af05630dfcaf45a8ea0a96f9169f6207"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\pages\\StockDetail.tsx": {
+    "mtime": 1786422527.1127553,
+    "hash": "1e545e5747ec2071f1746a1cb6bd00fd"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\src\\pages\\Universe.tsx": {
+    "mtime": 1786306622.0,
+    "hash": "f0a1dcc0bd391b055833c0cc086ab805"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\index.html": {
+    "mtime": 1786306622.0,
+    "hash": "c6cdc88c3abec682e37d1f35b7b4ad0b"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\raw.txt": {
+    "mtime": 1786306622.0,
+    "hash": "119c73b10732c42db5b295014495417a"
+  },
+  "D:\\Tradeidesa\\Aistudio-project\\sovereign-research-terminal-v3\\README.md": {
+    "mtime": 1786306622.0,
+    "hash": "55b61bffaa3496513e98f4aa676e40fd"
+  }
+}
