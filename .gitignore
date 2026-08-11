@@ -6,6 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
-local_data.db
-local_data.db-shm
-local_data.db-wal
+*.db
+*.db-shm
+*.db-wal
