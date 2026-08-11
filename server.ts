@@ -83,9 +83,9 @@ async function processFundamentalQueue() {
       }
 
       const data = {
-        salesGrowth: (fd.revenueGrowth || 0) * 100,
-        epsGrowth: (fd.earningsGrowth || 0) * 100,
-        roe: (fd.returnOnEquity || 0) * 100,
+        salesGrowth: fd.revenueGrowth != null ? fd.revenueGrowth * 100 : null,
+        epsGrowth: fd.earningsGrowth != null ? fd.earningsGrowth * 100 : null,
+        roe: fd.returnOnEquity != null ? fd.returnOnEquity * 100 : null,
         cfoPat, // real CFO/net-income ratio, or null if statement data unavailable
         fScore, // real 0-9 Piotroski F-Score (rescaled if some tests were ungradable), or null
         fScoreDetail, // full breakdown (criteria pass/fail + dataQuality) for the UI
@@ -211,7 +211,7 @@ async function startServer() {
   });
 
   // Portfolio Endpoints
-  app.get('/api/portfolio', (req, res) => {
+  app.get('/api/portfolio', async (req, res) => {
     try {
       const holdings = getHoldings();
       
@@ -242,7 +242,39 @@ async function startServer() {
           maxDrawdown = maxDd;
         }
         
-        const niftyHistory = getPriceHistory('^NSEI') as { date: string, close: number }[];
+        let niftyHistory = getPriceHistory('^NSEI') as { date: string, close: number }[];
+        
+        if (!niftyHistory || niftyHistory.length === 0) {
+          try {
+            const now = new Date();
+            const period1 = new Date();
+            period1.setDate(period1.getDate() - 365); // 1 year of history
+            
+            const result = await yahooFinance.chart('^NSEI', {
+              period1,
+              period2: now,
+              interval: '1d'
+            }) as any;
+            
+            if (result && result.quotes) {
+              const points = result.quotes
+                .filter((q: any) => q.close != null)
+                .map((q: any) => ({
+                  date: new Date(q.date).toISOString().slice(0, 10),
+                  price: Number(q.close.toFixed(2)),
+                  open: q.open != null ? Number(q.open.toFixed(2)) : undefined,
+                  high: q.high != null ? Number(q.high.toFixed(2)) : undefined,
+                  low: q.low != null ? Number(q.low.toFixed(2)) : undefined,
+                  volume: q.volume
+                }));
+              savePriceHistory('^NSEI', points);
+              niftyHistory = points.map((p: any) => ({ date: p.date, close: p.price }));
+            }
+          } catch (e) {
+            console.error("Failed to fetch ^NSEI history for portfolio beta", e);
+          }
+        }
+
         if (niftyHistory && niftyHistory.length > 0 && portValues.length > 1) {
           const portReturns: number[] = [];
           const benchReturns: number[] = [];

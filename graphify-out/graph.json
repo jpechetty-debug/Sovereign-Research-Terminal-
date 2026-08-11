@@ -45,7 +45,7 @@
       "source_file": "server.ts",
       "source_location": "L22",
       "id": "sovereign_research_terminal_v3_server_processfundamentalqueue",
-      "community": 13,
+      "community": 14,
       "norm_label": "processfundamentalqueue()"
     },
     {
@@ -108,7 +108,7 @@
       "source_file": "src/App.tsx",
       "source_location": "L1",
       "id": "src_app_tsx",
-      "community": 6,
+      "community": 2,
       "norm_label": "app.tsx"
     },
     {
@@ -117,7 +117,7 @@
       "source_file": "src/App.tsx",
       "source_location": "L12",
       "id": "src_app_app",
-      "community": 6,
+      "community": 2,
       "norm_label": "app()"
     },
     {
@@ -189,7 +189,7 @@
       "source_file": "src/db.ts",
       "source_location": "L119",
       "id": "src_db_getfundamentalscache",
-      "community": 13,
+      "community": 14,
       "norm_label": "getfundamentalscache()"
     },
     {
@@ -198,7 +198,7 @@
       "source_file": "src/db.ts",
       "source_location": "L125",
       "id": "src_db_savefundamentalscache",
-      "community": 13,
+      "community": 14,
       "norm_label": "savefundamentalscache()"
     },
     {
@@ -342,7 +342,7 @@
       "source_file": "src/main.tsx",
       "source_location": "L1",
       "id": "src_main_tsx",
-      "community": 6,
+      "community": 2,
       "norm_label": "main.tsx"
     },
     {
@@ -351,7 +351,7 @@
       "source_file": "src/components/Layout.tsx",
       "source_location": "L1",
       "id": "src_components_layout_tsx",
-      "community": 2,
+      "community": 6,
       "norm_label": "layout.tsx"
     },
     {
@@ -360,7 +360,7 @@
       "source_file": "src/components/Layout.tsx",
       "source_location": "L9",
       "id": "components_layout_layout",
-      "community": 2,
+      "community": 6,
       "norm_label": "layout()"
     },
     {
@@ -369,7 +369,7 @@
       "source_file": "src/components/Layout.tsx",
       "source_location": "L223",
       "id": "components_layout_navitem",
-      "community": 2,
+      "community": 6,
       "norm_label": "navitem()"
     },
     {
@@ -432,7 +432,7 @@
       "source_file": "src/context/DataContext.tsx",
       "source_location": "L41",
       "id": "context_datacontext_dataprovider",
-      "community": 6,
+      "community": 2,
       "norm_label": "dataprovider()"
     },
     {
@@ -441,7 +441,7 @@
       "source_file": "src/context/DataContext.tsx",
       "source_location": "L255",
       "id": "context_datacontext_useappengine",
-      "community": 2,
+      "community": 12,
       "norm_label": "useappengine()"
     },
     {
@@ -612,7 +612,7 @@
       "source_file": "src/lib/formulaParser.ts",
       "source_location": "L1",
       "id": "src_lib_formulaparser_ts",
-      "community": 12,
+      "community": 10,
       "norm_label": "formulaparser.ts"
     },
     {
@@ -621,7 +621,7 @@
       "source_file": "src/lib/formulaParser.ts",
       "source_location": "L5",
       "id": "lib_formulaparser_evaluateformula",
-      "community": 12,
+      "community": 10,
       "norm_label": "evaluateformula()"
     },
     {
@@ -630,7 +630,7 @@
       "source_file": "src/lib/formulaParser.ts",
       "source_location": "L36",
       "id": "lib_formulaparser_evaluatecondition",
-      "community": 12,
+      "community": 10,
       "norm_label": "evaluatecondition()"
     },
     {
@@ -666,7 +666,7 @@
       "source_file": "src/lib/optimizer.ts",
       "source_location": "L1",
       "id": "src_lib_optimizer_ts",
-      "community": 14,
+      "community": 13,
       "norm_label": "optimizer.ts"
     },
     {
@@ -675,7 +675,7 @@
       "source_file": "src/lib/optimizer.ts",
       "source_location": "L1",
       "id": "lib_optimizer_optimizationmethod",
-      "community": 14,
+      "community": 13,
       "norm_label": "optimizationmethod"
     },
     {
@@ -684,7 +684,7 @@
       "source_file": "src/lib/optimizer.ts",
       "source_location": "L3",
       "id": "lib_optimizer_holdingdata",
-      "community": 14,
+      "community": 13,
       "norm_label": "holdingdata"
     },
     {
@@ -693,7 +693,7 @@
       "source_file": "src/lib/optimizer.ts",
       "source_location": "L8",
       "id": "lib_optimizer_optimizeportfolio",
-      "community": 14,
+      "community": 13,
       "norm_label": "optimizeportfolio()"
     },
     {
@@ -756,7 +756,7 @@
       "source_file": "src/lib/piotroski.ts",
       "source_location": "L71",
       "id": "lib_piotroski_calculatepiotroskifscore",
-      "community": 13,
+      "community": 14,
       "norm_label": "calculatepiotroskifscore()"
     },
     {
@@ -765,7 +765,7 @@
       "source_file": "src/lib/utils.ts",
       "source_location": "L1",
       "id": "src_lib_utils_ts",
-      "community": 2,
+      "community": 6,
       "norm_label": "utils.ts"
     },
     {
@@ -774,7 +774,7 @@
       "source_file": "src/lib/utils.ts",
       "source_location": "L4",
       "id": "lib_utils_cn",
-      "community": 2,
+      "community": 6,
       "norm_label": "cn()"
     },
     {
@@ -783,7 +783,7 @@
       "source_file": "src/pages/Backtest.tsx",
       "source_location": "L1",
       "id": "src_pages_backtest_tsx",
-      "community": 6,
+      "community": 2,
       "norm_label": "backtest.tsx"
     },
     {
@@ -792,7 +792,7 @@
       "source_file": "src/pages/Backtest.tsx",
       "source_location": "L6",
       "id": "pages_backtest_backtestsnapshot",
-      "community": 6,
+      "community": 2,
       "norm_label": "backtestsnapshot"
     },
     {
@@ -801,7 +801,7 @@
       "source_file": "src/pages/Backtest.tsx",
       "source_location": "L14",
       "id": "pages_backtest_backtest",
-      "community": 6,
+      "community": 2,
       "norm_label": "backtest()"
     },
     {
@@ -873,7 +873,7 @@
       "source_file": "src/pages/Portfolio.tsx",
       "source_location": "L1",
       "id": "src_pages_portfolio_tsx",
-      "community": 10,
+      "community": 12,
       "norm_label": "portfolio.tsx"
     },
     {
@@ -882,7 +882,7 @@
       "source_file": "src/pages/Portfolio.tsx",
       "source_location": "L8",
       "id": "pages_portfolio_holding",
-      "community": 10,
+      "community": 12,
       "norm_label": "holding"
     },
     {
@@ -891,7 +891,7 @@
       "source_file": "src/pages/Portfolio.tsx",
       "source_location": "L15",
       "id": "pages_portfolio_colors",
-      "community": 10,
+      "community": 12,
       "norm_label": "colors"
     },
     {
@@ -900,7 +900,7 @@
       "source_file": "src/pages/Portfolio.tsx",
       "source_location": "L17",
       "id": "pages_portfolio_portfolio",
-      "community": 10,
+      "community": 12,
       "norm_label": "portfolio()"
     },
     {
@@ -909,7 +909,7 @@
       "source_file": "src/pages/Screener.tsx",
       "source_location": "L1",
       "id": "src_pages_screener_tsx",
-      "community": 12,
+      "community": 10,
       "norm_label": "screener.tsx"
     },
     {
@@ -918,7 +918,7 @@
       "source_file": "src/pages/Screener.tsx",
       "source_location": "L9",
       "id": "pages_screener_screener",
-      "community": 12,
+      "community": 2,
       "norm_label": "screener()"
     },
     {
@@ -936,7 +936,7 @@
       "source_file": "src/pages/StockDetail.tsx",
       "source_location": "L11",
       "id": "pages_stockdetail_stockdetail",
-      "community": 2,
+      "community": 6,
       "norm_label": "stockdetail()"
     },
     {
@@ -963,7 +963,7 @@
       "source_file": "src/pages/Universe.tsx",
       "source_location": "L1",
       "id": "src_pages_universe_tsx",
-      "community": 2,
+      "community": 6,
       "norm_label": "universe.tsx"
     },
     {
@@ -1051,7 +1051,7 @@
       "label": "Technologies Used",
       "file_type": "document",
       "source_file": "README.md",
-      "source_location": "L43",
+      "source_location": "L46",
       "id": "sovereign_research_terminal_v3_readme_technologies_used",
       "community": 3,
       "norm_label": "technologies used"
@@ -3333,5 +3333,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "05e2c98b9d65b5c1f5a7c0a20516c4583d22a5b7"
+  "built_at_commit": "c3e960e02a8a2191dde841a2c5b9711e5a4d3855"
 }

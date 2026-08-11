@@ -1,7 +1,7 @@
 # Graph Report - sovereign-research-terminal-v3  (2026-08-11)
 
 ## Corpus Check
-- 25 files · ~21,519 words
+- 25 files · ~21,730 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
@@ -10,7 +10,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `05e2c98b`
+- Built from commit: `c3e960e0`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -67,8 +67,8 @@ Cohesion: 0.24
 Nodes (8): DataContext, DataContextType, PriceAlert, StockData, VixData, MOCK_STOCKS, calculateNexusMatrix(), sigmoid()
 
 ### Community 2 - "Community 2"
-Cohesion: 0.44
-Nodes (6): Layout(), NavItem(), useAppEngine(), cn(), StockDetail(), Universe()
+Cohesion: 0.25
+Nodes (5): DataProvider(), Backtest(), BacktestSnapshot, Screener(), Universe()
 
 ### Community 3 - "Community 3"
 Cohesion: 0.22
@@ -83,8 +83,8 @@ Cohesion: 0.33
 Nodes (4): AlertItemProps, Dashboard(), generateAlerts(), GeneratedAlert
 
 ### Community 6 - "Community 6"
-Cohesion: 0.33
-Nodes (3): DataProvider(), Backtest(), BacktestSnapshot
+Cohesion: 0.48
+Nodes (4): Layout(), NavItem(), cn(), StockDetail()
 
 ### Community 7 - "Community 7"
 Cohesion: 0.47
@@ -99,24 +99,24 @@ Cohesion: 0.47
 Nodes (3): calculateDCF(), calculateReverseDCF(), FinancialsView()
 
 ### Community 10 - "Community 10"
-Cohesion: 0.47
-Nodes (4): formatCurrency(), COLORS, Holding, Portfolio()
+Cohesion: 0.53
+Nodes (3): formatCurrency(), evaluateCondition(), evaluateFormula()
 
 ### Community 11 - "Community 11"
 Cohesion: 0.4
 Nodes (4): ai, CopilotInputs, CopilotMemo, generateAiMemo()
 
 ### Community 12 - "Community 12"
-Cohesion: 0.6
-Nodes (3): evaluateCondition(), evaluateFormula(), Screener()
+Cohesion: 0.5
+Nodes (4): useAppEngine(), COLORS, Holding, Portfolio()
 
 ### Community 13 - "Community 13"
 Cohesion: 0.5
-Nodes (4): calculatePiotroskiFScore(), processFundamentalQueue(), getFundamentalsCache(), saveFundamentalsCache()
+Nodes (3): HoldingData, OptimizationMethod, optimizePortfolio()
 
 ### Community 14 - "Community 14"
 Cohesion: 0.5
-Nodes (3): HoldingData, OptimizationMethod, optimizePortfolio()
+Nodes (4): calculatePiotroskiFScore(), processFundamentalQueue(), getFundamentalsCache(), saveFundamentalsCache()
 
 ## Knowledge Gaps
 - **30 isolated node(s):** `yahooFinance`, `QUOTE_CACHE`, `fundamentalQueue`, `env`, `yahooFinance` (+25 more)
@@ -128,7 +128,7 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `MOCK_STOCKS` connect `Community 1` to `Community 0`?**
   _High betweenness centrality (0.202) - this node is a cross-community bridge._
-- **Why does `useAppEngine()` connect `Community 2` to `Community 1`, `Community 5`, `Community 9`, `Community 10`, `Community 12`?**
+- **Why does `useAppEngine()` connect `Community 12` to `Community 1`, `Community 2`, `Community 5`, `Community 6`, `Community 9`, `Community 10`?**
   _High betweenness centrality (0.035) - this node is a cross-community bridge._
 - **Why does `computeTrendsAndCAGR()` connect `Community 7` to `Community 0`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
