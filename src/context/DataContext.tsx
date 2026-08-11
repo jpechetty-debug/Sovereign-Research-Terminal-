@@ -153,7 +153,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             body: JSON.stringify({
               ticker: stock.ticker,
               nexusScore: matrix.nexusScore,
-              factorScores: matrix.scores,
+              factorScores: { scores: matrix.scores, contributions: matrix.contributions },
               regime: currentMarketRegime
             })
           }).catch(console.error);
@@ -166,6 +166,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             marketCap: live.marketCap ? formatMcap(live.marketCap) : stock.marketCap,
             regime: currentMarketRegime,
             scores: matrix.scores,
+            contributions: matrix.contributions,
+            dataCompleteness: matrix.dataCompleteness,
             nexusScore: matrix.nexusScore
           };
         }

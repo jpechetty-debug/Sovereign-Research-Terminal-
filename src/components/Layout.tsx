@@ -197,7 +197,9 @@ export function Layout() {
             
             <div className="flex gap-2.5 text-zinc-400 items-center bg-black/30 px-3 py-1.5 rounded-sm border border-white/5">
               <Clock className="w-3.5 h-3.5" />
-              <span className="tabular-data tracking-wider">{time.toUTCString().replace('GMT', 'UTC')}</span>
+              <span className="tabular-data tracking-wider">
+                {time.toLocaleDateString('en-IN', { timeZone: 'Asia/Kolkata', weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' })} {time.toLocaleTimeString('en-IN', { timeZone: 'Asia/Kolkata', hour12: false })} IST
+              </span>
             </div>
           </div>
         </header>

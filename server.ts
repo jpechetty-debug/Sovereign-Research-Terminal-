@@ -565,7 +565,7 @@ async function startServer() {
         return res.status(400).json({ error: 'Ticker and nexusScore are required' });
       }
       
-      const date = new Date().toISOString().slice(0, 10);
+      const date = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata' });
       saveAlphaScore(ticker, date, nexusScore, factorScores || {}, regime || 'Neutral');
       
       res.json({ success: true });

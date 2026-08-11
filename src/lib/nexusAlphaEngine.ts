@@ -85,8 +85,37 @@ export function calculateNexusMatrix(metrics: any, liveChange: number, regime: s
 
   const nexusScore = weightTotal > 0 ? Number((weightedSum / weightTotal).toFixed(2)) : 0;
 
+  // Compute signed point contributions relative to a neutral 50 baseline
+  const contributions: { factor: string, points: number }[] = [];
+  if (weightTotal > 0) {
+    for (const [key, val] of Object.entries(scores)) {
+      if (val === null) continue;
+      const w = weights[key] || 0;
+      if (w === 0) continue;
+      
+      const renormalizedWeight = w / weightTotal;
+      const points = (val - 50) * renormalizedWeight;
+      
+      // Formatting names for UI display
+      const factorNames: Record<string, string> = {
+        sales: 'Sales Growth', roe_roce: 'ROE/ROCE', cfo_pat: 'Cash Conv.',
+        valuation: 'Valuation', eps: 'EPS Growth', f_score: 'Piotroski',
+        debt_equity: 'Leverage', momentum: 'Momentum', sentiment: 'Sentiment'
+      };
+      
+      contributions.push({
+        factor: factorNames[key] || key,
+        points: Number(points.toFixed(1))
+      });
+    }
+  }
+
+  // Sort contributions by absolute impact (highest magnitude first)
+  contributions.sort((a, b) => Math.abs(b.points) - Math.abs(a.points));
+
   return {
     scores,
+    contributions,
     nexusScore,
     // Lets the UI show "score based on N/9 factors" instead of implying
     // every score is equally well-supported by data.

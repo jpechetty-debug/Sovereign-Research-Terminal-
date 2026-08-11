@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { formatCurrency } from '../lib/formatters';
 import { calculateDCF, calculateReverseDCF } from '../lib/dcf';
+import { generateVerdict } from '../lib/decisionEngine';
+import { FactorBreakdown } from '../components/FactorBreakdown';
 
 export function StockDetail() {
   const { ticker } = useParams();
@@ -222,6 +224,14 @@ export function StockDetail() {
     show: { opacity: 1, scale: 1, y: 0, transition: { type: "spring" as const, stiffness: 300, damping: 25 } }
   };
 
+  const verdictData = useMemo(() => {
+    return generateVerdict(
+      stock.nexusScore,
+      stock.contributions || [],
+      stock.dataCompleteness || { available: 0, total: 9 }
+    );
+  }, [stock]);
+
   return (
     <motion.div variants={containerVars} initial="hidden" animate="show" className="space-y-6">
       {/* Header */}
@@ -339,6 +349,59 @@ export function StockDetail() {
             
             {/* Main Content Area (8 Cols) */}
             <div className="xl:col-span-8 flex flex-col gap-6">
+
+          {/* Decision Engine Verdict Banner */}
+          <motion.div variants={itemVars} className="brutal-panel p-6 border-brand/50 shadow-[0_0_20px_rgba(0,240,255,0.05)] bg-black/80 backdrop-blur-md relative overflow-hidden">
+            <div className={`absolute top-0 left-0 w-1 h-full ${
+              verdictData.verdict === 'BUY' ? 'bg-green-500' : 
+              verdictData.verdict === 'HOLD' ? 'bg-zinc-400' : 'bg-red-500'
+            }`}></div>
+            <div className="flex flex-col md:flex-row gap-6 md:items-center justify-between pl-4">
+              <div>
+                <h3 className="text-[10px] font-mono text-dim tracking-widest uppercase mb-1">Nexus Decision Engine</h3>
+                <div className="flex items-center gap-3">
+                  <span className={`text-4xl font-bold font-mono tracking-tighter ${
+                    verdictData.verdict === 'BUY' ? 'text-green-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.5)]' : 
+                    verdictData.verdict === 'HOLD' ? 'text-zinc-300' : 'text-red-400 drop-shadow-[0_0_10px_rgba(248,113,113,0.5)]'
+                  }`}>
+                    {verdictData.verdict}
+                  </span>
+                  <span className="text-xs font-mono text-zinc-500 bg-white/5 px-2 py-1 rounded-sm border border-white/10 uppercase tracking-wider">
+                    {verdictData.confidence}% Confidence
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
+                <div>
+                  <div className="text-green-400/80 mb-2 uppercase tracking-widest border-b border-green-400/20 pb-1">Primary Drivers</div>
+                  {verdictData.reasons.length > 0 ? (
+                    <ul className="space-y-1">
+                      {verdictData.reasons.map((r, i) => (
+                        <li key={i} className="text-zinc-300 flex justify-between">
+                          <span>{r.factor}</span>
+                          <span className="text-green-400">+{r.points.toFixed(1)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : <span className="text-dim">No strong positive factors</span>}
+                </div>
+                <div>
+                  <div className="text-red-400/80 mb-2 uppercase tracking-widest border-b border-red-400/20 pb-1">Key Risks</div>
+                  {verdictData.risks.length > 0 ? (
+                    <ul className="space-y-1">
+                      {verdictData.risks.map((r, i) => (
+                        <li key={i} className="text-zinc-300 flex justify-between">
+                          <span>{r.factor}</span>
+                          <span className="text-red-400">{r.points.toFixed(1)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : <span className="text-dim">No major negative factors</span>}
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
           {/* Deep Fundamentals Grid */}
           <motion.div variants={itemVars} className="brutal-panel p-6">
@@ -471,37 +534,49 @@ export function StockDetail() {
         </div>
       </div>
       
-      {/* Engine Trace Log (Bottom Width) */}
-      <motion.div variants={itemVars} className="brutal-panel p-6 mt-2 border border-brand/30 bg-black/80 overflow-hidden relative font-mono shadow-[0_0_20px_rgba(0,240,255,0.05)] rounded-sm">
-        <div className="absolute top-0 right-0 bg-brand text-black font-mono text-[9px] px-3 py-1 font-bold uppercase tracking-widest">Trace Log: Online</div>
-        <h3 className="text-sm font-bold uppercase tracking-widest mb-6 flex items-center gap-2 text-zinc-300 border-b border-white/10 pb-4">
-          <Activity className="w-4 h-4 text-brand glow-text" /> ENGINE TRACE: COMPUTATION LOGIC
-        </h3>
-        <div className="text-[11px] text-zinc-400 space-y-2 leading-relaxed whitespace-pre-wrap selection:bg-brand selection:text-black">
-          {`[SYS] Sigmoid Normalization Engine Bootstrap \u2014 \u001b[36mv11.0.4\u001b[0m`} <br/>
-          {`[SYS] Sec-Rel Parity: Loaded Sector "${stock.sector}" Medians... OK.`} <br/>
-          {stock.metrics.salesGrowth == null && stock.metrics.epsGrowth == null 
-            ? `[\u001b[33mWARN\u001b[0m] Growth Vector \u2192 Data unavailable, factor excluded from composite.`
-            : `[\u001b[32mOK\u001b[0m]  Growth Vector (Sales: ${stock.metrics.salesGrowth ?? 'N/A'}%, EPS: ${stock.metrics.epsGrowth ?? 'N/A'}%) \u2192 Sigmoid mapping complete.`} <br/>
-          {stock.metrics.roe == null
-            ? `[\u001b[33mWARN\u001b[0m] Quality Vector \u2192 ROE unavailable, factor excluded from composite.`
-            : <>
-                {`[\u001b[${stock.metrics.roe > 100 ? '33mWARN' : '32mOK'}\u001b[0m] Quality Vector (ROE: ${stock.metrics.roe}%) \u2192 `}
-                {stock.metrics.roe > 100 
-                  ? `Cap applied via ROE Decay Spline.` 
-                  : `Efficiency mapped to structural flooring bounds.`}
-              </>} <br/>
-          {stock.metrics.cfoPat == null
-            ? `[\u001b[33mWARN\u001b[0m] Cash Flow Vector \u2192 CFO/PAT unavailable, factor excluded from composite (weight redistributed).`
-            : `[\u001b[${stock.metrics.cfoPat < 1.0 ? '33mWARN' : '32mOK'}\u001b[0m] Cash Flow Vector (CFO/PAT: ${stock.metrics.cfoPat}x) \u2192 ${stock.metrics.cfoPat < 1.0 ? 'Failed >1.0 threshold. Recursive Penalty applied.' : 'Cash flow conversion mapping nominal.'}`} <br/>
-          {`[SYS] Dynamic Regime Weighting applied: [\u001b[36m${stock.regime.toUpperCase()}\u001b[0m] constraints active.`} <br/>
-          
-          <div className="mt-6 pt-4 border-t border-white/10 text-brand font-bold bg-white/5 px-4 py-3 flex justify-between max-w-lg rounded-sm items-center glow">
-            <span className="tracking-widest">{`>`} COMPOSITE DETERMINISTIC HASH:</span>
-            <span className="text-xl tabular-data tracking-tight">{stock.nexusScore.toFixed(2)}</span>
+      {/* Explainability Layer / Engine Trace Log */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-2">
+        <motion.div variants={itemVars} className="brutal-panel p-6 border border-white/10 bg-black/80 overflow-hidden relative shadow-[0_0_20px_rgba(0,0,0,0.5)] rounded-sm">
+          <div className="absolute top-0 right-0 bg-brand text-black font-mono text-[9px] px-3 py-1 font-bold uppercase tracking-widest">Explainability</div>
+          <h3 className="text-sm font-bold uppercase tracking-widest mb-6 flex items-center gap-2 text-zinc-300 border-b border-white/10 pb-4">
+            <BarChart2 className="w-4 h-4 text-brand glow-text" /> FACTOR BREAKDOWN (POINTS)
+          </h3>
+          <div className="pt-2">
+            <FactorBreakdown contributions={stock.contributions || []} />
           </div>
-        </div>
-      </motion.div>
+        </motion.div>
+
+        <motion.div variants={itemVars} className="brutal-panel p-6 border border-brand/30 bg-black/80 overflow-hidden relative font-mono shadow-[0_0_20px_rgba(0,240,255,0.05)] rounded-sm">
+          <div className="absolute top-0 right-0 bg-brand text-black font-mono text-[9px] px-3 py-1 font-bold uppercase tracking-widest">Trace Log: Online</div>
+          <h3 className="text-sm font-bold uppercase tracking-widest mb-6 flex items-center gap-2 text-zinc-300 border-b border-white/10 pb-4">
+            <Activity className="w-4 h-4 text-brand glow-text" /> ENGINE TRACE: COMPUTATION LOGIC
+          </h3>
+          <div className="text-[11px] text-zinc-400 space-y-2 leading-relaxed whitespace-pre-wrap selection:bg-brand selection:text-black">
+            {`[SYS] Sigmoid Normalization Engine Bootstrap \u2014 \u001b[36mv11.0.4\u001b[0m`} <br/>
+            {`[SYS] Sec-Rel Parity: Loaded Sector "${stock.sector}" Medians... OK.`} <br/>
+            {stock.metrics.salesGrowth == null && stock.metrics.epsGrowth == null 
+              ? `[\u001b[33mWARN\u001b[0m] Growth Vector \u2192 Data unavailable, factor excluded from composite.`
+              : `[\u001b[32mOK\u001b[0m]  Growth Vector (Sales: ${stock.metrics.salesGrowth ?? 'N/A'}%, EPS: ${stock.metrics.epsGrowth ?? 'N/A'}%) \u2192 Sigmoid mapping complete.`} <br/>
+            {stock.metrics.roe == null
+              ? `[\u001b[33mWARN\u001b[0m] Quality Vector \u2192 ROE unavailable, factor excluded from composite.`
+              : <>
+                  {`[\u001b[${stock.metrics.roe > 100 ? '33mWARN' : '32mOK'}\u001b[0m] Quality Vector (ROE: ${stock.metrics.roe}%) \u2192 `}
+                  {stock.metrics.roe > 100 
+                    ? `Cap applied via ROE Decay Spline.` 
+                    : `Efficiency mapped to structural flooring bounds.`}
+                </>} <br/>
+            {stock.metrics.cfoPat == null
+              ? `[\u001b[33mWARN\u001b[0m] Cash Flow Vector \u2192 CFO/PAT unavailable, factor excluded from composite (weight redistributed).`
+              : `[\u001b[${stock.metrics.cfoPat < 1.0 ? '33mWARN' : '32mOK'}\u001b[0m] Cash Flow Vector (CFO/PAT: ${stock.metrics.cfoPat}x) \u2192 ${stock.metrics.cfoPat < 1.0 ? 'Failed >1.0 threshold. Recursive Penalty applied.' : 'Cash flow conversion mapping nominal.'}`} <br/>
+            {`[SYS] Dynamic Regime Weighting applied: [\u001b[36m${stock.regime.toUpperCase()}\u001b[0m] constraints active.`} <br/>
+            
+            <div className="mt-6 pt-4 border-t border-white/10 text-brand font-bold bg-white/5 px-4 py-3 flex justify-between max-w-lg rounded-sm items-center glow">
+              <span className="tracking-widest">{`>`} COMPOSITE DETERMINISTIC HASH:</span>
+              <span className="text-xl tabular-data tracking-tight">{stock.nexusScore.toFixed(2)}</span>
+            </div>
+          </div>
+        </motion.div>
+      </div>
 
       {/* Notes Section */}
       <motion.div variants={itemVars} className="brutal-panel p-6 border border-white/10 bg-black/60 shadow-[0_5px_15px_rgba(0,0,0,0.5)]">
