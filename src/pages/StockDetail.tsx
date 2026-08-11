@@ -356,7 +356,7 @@ export function StockDetail() {
                 <FundamentalBox label="PE Ratio (TTM)" value={stock.metrics.peRatio != null ? `${stock.metrics.peRatio.toFixed(2)}x` : "N/A"} sub="Current" highlight={stock.metrics.peRatio != null && stock.metrics.peRatio < 25} />
                 <FundamentalBox label="52W Change" value={`${(stock.metrics.fiftyTwoWeekChange || 0).toFixed(2)}%`} sub="1 Year Return" isPercent />
                 <FundamentalBox label="Debt to Equity" value={isFinancial ? "N/A" : stock.metrics.debtEquity != null ? `${stock.metrics.debtEquity.toFixed(2)}` : "N/A"} sub={isFinancial ? "Financial Sector" : stock.metrics.debtEquity != null ? (stock.metrics.debtEquity > 0.5 ? 'High' : 'Optimal') : 'N/A'} />
-                <FundamentalBox label="ROE" value={`${stock.metrics.roe.toFixed(2)}%`} sub="Return on Eq" isPercent />
+                <FundamentalBox label="ROE" value={stock.metrics.roe != null ? `${stock.metrics.roe.toFixed(2)}%` : "N/A"} sub={stock.metrics.roe != null ? "Return on Eq" : "Data unavailable"} isPercent={stock.metrics.roe != null} />
                 <FundamentalBox label="Dist to 50D" value={`${stock.metrics.fiftyDayAverage ? (((stock.price - stock.metrics.fiftyDayAverage) / stock.metrics.fiftyDayAverage) * 100).toFixed(2) : '0.00'}%`} sub="Medium Trend" isPercent />
                 <FundamentalBox
                   label="Piotroski Score"
@@ -370,9 +370,9 @@ export function StockDetail() {
                   sub={stock.metrics.cfoPat == null ? "Cash flow data unavailable" : "Cash Conversion"}
                   highlight={stock.metrics.cfoPat != null && stock.metrics.cfoPat > 1}
                 />
-                <FundamentalBox label="Sales Growth" value={`${stock.metrics.salesGrowth.toFixed(2)}%`} sub="5Y CAGR" isPercent />
-                <FundamentalBox label="EPS Growth" value={`${stock.metrics.epsGrowth.toFixed(2)}%`} sub="5Y CAGR" isPercent />
-                <FundamentalBox label="Promoter Pvg" value={`${stock.metrics.pledge}%`} sub="Pledged holdings" />
+                <FundamentalBox label="Sales Growth" value={stock.metrics.salesGrowth != null ? `${stock.metrics.salesGrowth.toFixed(2)}%` : "N/A"} sub={stock.metrics.salesGrowth != null ? "5Y CAGR" : "Data unavailable"} isPercent={stock.metrics.salesGrowth != null} />
+                <FundamentalBox label="EPS Growth" value={stock.metrics.epsGrowth != null ? `${stock.metrics.epsGrowth.toFixed(2)}%` : "N/A"} sub={stock.metrics.epsGrowth != null ? "5Y CAGR" : "Data unavailable"} isPercent={stock.metrics.epsGrowth != null} />
+                <FundamentalBox label="Promoter Pvg" value={stock.metrics.pledge != null ? `${stock.metrics.pledge}%` : "N/A"} sub="Pledged holdings" />
                 <FundamentalBox label="Dist to 200D" value={`${stock.metrics.twoHundredDayAverage ? (((stock.price - stock.metrics.twoHundredDayAverage) / stock.metrics.twoHundredDayAverage) * 100).toFixed(2) : '0.00'}%`} sub="Long Trend" isPercent />
              </div>
           </motion.div>
@@ -480,11 +480,17 @@ export function StockDetail() {
         <div className="text-[11px] text-zinc-400 space-y-2 leading-relaxed whitespace-pre-wrap selection:bg-brand selection:text-black">
           {`[SYS] Sigmoid Normalization Engine Bootstrap \u2014 \u001b[36mv11.0.4\u001b[0m`} <br/>
           {`[SYS] Sec-Rel Parity: Loaded Sector "${stock.sector}" Medians... OK.`} <br/>
-          {`[\u001b[32mOK\u001b[0m]  Growth Vector (Sales: ${stock.metrics.salesGrowth}%, EPS: ${stock.metrics.epsGrowth}%) \u2192 Sigmoid mapping complete.`} <br/>
-          {`[\u001b[${stock.metrics.roe > 100 ? '33mWARN' : '32mOK'}\u001b[0m] Quality Vector (ROE: ${stock.metrics.roe}%) \u2192 `}
-          {stock.metrics.roe > 100 
-            ? `Cap applied via ROE Decay Spline.` 
-            : `Efficiency mapped to structural flooring bounds.`} <br/>
+          {stock.metrics.salesGrowth == null && stock.metrics.epsGrowth == null 
+            ? `[\u001b[33mWARN\u001b[0m] Growth Vector \u2192 Data unavailable, factor excluded from composite.`
+            : `[\u001b[32mOK\u001b[0m]  Growth Vector (Sales: ${stock.metrics.salesGrowth ?? 'N/A'}%, EPS: ${stock.metrics.epsGrowth ?? 'N/A'}%) \u2192 Sigmoid mapping complete.`} <br/>
+          {stock.metrics.roe == null
+            ? `[\u001b[33mWARN\u001b[0m] Quality Vector \u2192 ROE unavailable, factor excluded from composite.`
+            : <>
+                {`[\u001b[${stock.metrics.roe > 100 ? '33mWARN' : '32mOK'}\u001b[0m] Quality Vector (ROE: ${stock.metrics.roe}%) \u2192 `}
+                {stock.metrics.roe > 100 
+                  ? `Cap applied via ROE Decay Spline.` 
+                  : `Efficiency mapped to structural flooring bounds.`}
+              </>} <br/>
           {stock.metrics.cfoPat == null
             ? `[\u001b[33mWARN\u001b[0m] Cash Flow Vector \u2192 CFO/PAT unavailable, factor excluded from composite (weight redistributed).`
             : `[\u001b[${stock.metrics.cfoPat < 1.0 ? '33mWARN' : '32mOK'}\u001b[0m] Cash Flow Vector (CFO/PAT: ${stock.metrics.cfoPat}x) \u2192 ${stock.metrics.cfoPat < 1.0 ? 'Failed >1.0 threshold. Recursive Penalty applied.' : 'Cash flow conversion mapping nominal.'}`} <br/>

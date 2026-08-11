@@ -133,7 +133,7 @@ export function Screener() {
                   <td className="py-3 px-5 text-center font-mono text-xs tabular-data text-zinc-300">
                     {stock.metrics.fScore == null ? '—' : Number.isInteger(stock.metrics.fScore) ? stock.metrics.fScore : stock.metrics.fScore.toFixed(1)}
                   </td>
-                  <td className="py-3 px-5 text-right font-mono text-xs tabular-data text-zinc-400">{(stock.metrics.peRatio).toFixed(1)}x</td>
+                  <td className="py-3 px-5 text-right font-mono text-xs tabular-data text-zinc-400">{stock.metrics.peRatio != null ? `${(stock.metrics.peRatio).toFixed(1)}x` : 'N/A'}</td>
                 </tr>
               ))}
               {/* Filler rows to maintain height visual */}
