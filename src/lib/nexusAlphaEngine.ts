@@ -91,9 +91,10 @@ export function calculateNexusMatrix(
   const isFinancial = sector.includes('Financial') || sector.includes('Bank') || sector.includes('NBFC');
 
   const peRatio = asFiniteNumber(metrics.peRatio);
+  const anchorPe = asFiniteNumber(metrics.trailingPeMidpoint) ?? 25;
   const valuation = peRatio === null || peRatio <= 0
     ? null
-    : relativeScores?.valuation ?? sigmoid(peRatio, 25, 0.15, true);
+    : relativeScores?.valuation ?? sigmoid(peRatio, anchorPe, 0.15, true);
   
   // Financials intrinsically run with high leverage, so D/E is not a valid penalty
   const debt_equity = isFinancial || metrics.debtEquity == null ? null : sigmoid(metrics.debtEquity, 1.0, 3.0, true);
