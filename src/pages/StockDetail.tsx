@@ -560,7 +560,7 @@ export function StockDetail() {
               : <>
                   {`[\u001b[${stock.metrics.roe > 100 ? '33mWARN' : '32mOK'}\u001b[0m] Quality Vector (ROE: ${stock.metrics.roe}%) \u2192 `}
                   {stock.metrics.roe > 100 
-                    ? `Cap applied via ROE Decay Spline.` 
+                    ? `Sigmoid saturation applied — extreme values compress toward the ceiling.` 
                     : `Efficiency mapped to structural flooring bounds.`}
                 </>} <br/>
             {stock.metrics.cfoPat == null
