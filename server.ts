@@ -5,7 +5,7 @@ import YahooFinance from 'yahoo-finance2';
 import { initDB, getUniverse, addTicker, removeTicker, getFundamentalsCache, saveFundamentalsCache, getPriceHistory, getNotes, addNote, deleteNote, savePriceHistory, saveFundamentalsHistory, getFundamentalsHistory, saveAlphaScore, getHoldings, addHolding, removeHolding, getLatestAiMemo, saveAiMemo, getAlphaScoreHistory, getLatestPriceHistory } from './src/db';
 import { optimizePortfolio, OptimizationMethod } from './src/lib/optimizer';
 import { calculatePiotroskiFScore, type AnnualFundamentalPeriod } from './src/lib/piotroski';
-import { computeTrendsAndCAGR, computeTrailingPEBand } from './src/lib/financialAnalysis';
+import { computeTrendsAndCAGR, computeTrailingPEBand, computeRiskMetrics } from './src/lib/financialAnalysis';
 import { generateAiMemo } from './src/lib/aiCopilot';
 
 const yahooFinance = new YahooFinance({ suppressNotices: ['yahooSurvey'] });
@@ -429,16 +429,25 @@ async function startServer() {
         }
         
         let trailingPeMidpoint = null;
+        let volatility = null;
+        let maxDrawdown1Y = null;
         if (cachedFund?.data) {
            let eps = cachedFund.data.eps;
            // Fallback to computing from price and PE ratio if missing from defaultKeyStatistics
            if (!eps && q.regularMarketPrice && cachedFund.data.peRatio) {
              eps = q.regularMarketPrice / cachedFund.data.peRatio;
            }
+           
+           const ph = getLatestPriceHistory(t, 250); // last 1 year roughly
            if (eps) {
-             const ph = getLatestPriceHistory(t, 250); // last 1 year roughly
              const band = computeTrailingPEBand(ph as any, eps);
              if (band) trailingPeMidpoint = band;
+           }
+           
+           if (ph && ph.length > 0) {
+             const risk = computeRiskMetrics(ph as any);
+             volatility = risk.volatility;
+             maxDrawdown1Y = risk.maxDrawdown1Y;
            }
         }
 
@@ -448,7 +457,7 @@ async function startServer() {
           change: q.regularMarketChangePercent,
           marketCap: q.marketCap,
           volume: q.regularMarketVolume,
-          fundamentals: cachedFund?.data ? { ...cachedFund.data, trailingPeMidpoint } : null
+          fundamentals: cachedFund?.data ? { ...cachedFund.data, trailingPeMidpoint, volatility, maxDrawdown1Y } : null
         };
       }).filter(Boolean);
 

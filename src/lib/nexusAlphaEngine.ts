@@ -98,6 +98,9 @@ export function calculateNexusMatrix(
   
   // Financials intrinsically run with high leverage, so D/E is not a valid penalty
   const debt_equity = isFinancial || metrics.debtEquity == null ? null : sigmoid(metrics.debtEquity, 1.0, 3.0, true);
+  
+  // Realized Volatility: Inverted so lower volatility = safer = higher score
+  const volatility = metrics.volatility != null ? sigmoid(metrics.volatility, 40, 0.15, true) : null;
 
   // f_score is now a real Piotroski F-Score computed from multi-year
   // financials (0-9, rescaled if some of the 9 tests were ungradable).
@@ -122,16 +125,16 @@ export function calculateNexusMatrix(
   }
   
   const sentiment = 50; 
-  const scores = { sales, roe_roce, cfo_pat, valuation, eps, f_score, debt_equity, momentum, sentiment };
+  const scores = { sales, roe_roce, cfo_pat, valuation, eps, f_score, debt_equity, volatility, momentum, sentiment };
 
   let weights: Record<string, number> = {
     sales: 0.15, roe_roce: 0.15, cfo_pat: 0.10, 
     valuation: 0.15, eps: 0.10, f_score: 0.10, 
-    debt_equity: 0.10, momentum: 0.15, sentiment: 0.00
+    debt_equity: 0.05, volatility: 0.05, momentum: 0.15, sentiment: 0.00
   };
 
   if (regime === 'Bull' || regime === 'Breakout') {
-    weights = { ...weights, momentum: 0.25, sales: 0.20, valuation: 0.05, debt_equity: 0.05 };
+    weights = { ...weights, momentum: 0.25, sales: 0.20, valuation: 0.05, debt_equity: 0.025, volatility: 0.025 };
   } else if (regime === 'Bear') {
     weights = { ...weights, valuation: 0.25, cfo_pat: 0.20, roe_roce: 0.20, momentum: 0.0, sales: 0.05, sentiment: 0.00 };
   }
@@ -171,7 +174,7 @@ export function calculateNexusMatrix(
       const factorNames: Record<string, string> = {
         sales: 'Sales Growth', roe_roce: 'ROE/ROCE', cfo_pat: 'Cash Conv.',
         valuation: 'Valuation', eps: 'EPS Growth', f_score: 'Piotroski',
-        debt_equity: 'Leverage', momentum: 'Momentum', sentiment: 'Sentiment'
+        debt_equity: 'Leverage', volatility: 'Volatility', momentum: 'Momentum', sentiment: 'Sentiment'
       };
       
       contributions.push({
@@ -195,7 +198,7 @@ export function calculateNexusMatrix(
     growth:   avgBucket(['sales', 'eps']),
     value:    avgBucket(['valuation']),
     momentum: avgBucket(['momentum']),
-    risk:     avgBucket(['debt_equity']),
+    risk:     avgBucket(['debt_equity', 'volatility']),
   };
 
   return {
