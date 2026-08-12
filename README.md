@@ -14,7 +14,7 @@ The Sovereign Research Terminal is a locally-hosted equity research workstation 
 |---|---|
 | **Explainable Alpha Scoring** | Scores 0–100 with a full factor breakdown (growth, profitability, momentum). No black boxes. |
 | **Deterministic Decision Engine** | BUY / HOLD / AVOID verdicts driven by score thresholds and data completeness — not LLM guesses. |
-| **Market Regime Awareness** | VIX-driven regime detection (Risk-On, Caution, Risk-Off) surfaced in the UI. |
+| **Market Regime Awareness** | Breadth-driven regime detection (Bull, Bear, Choppy) surfaced in the UI. |
 | **Top-10 Backtest Harness** | Reconstructs a Top-10 equal-weight portfolio vs Nifty 50 with CAGR, Sharpe, Max Drawdown, and Win Rate. Honest about its data window. |
 | **AI Investment Memos** | Gemini 2.5 synthesizes thesis, moat, management quality, bull/bear cases, and risks — qualitative only, no fabricated price targets. |
 | **DCF & Reverse DCF** | Automated intrinsic value estimates from real Operating Cash Flow, with implied growth rate calculations. |

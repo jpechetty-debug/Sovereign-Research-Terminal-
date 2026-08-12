@@ -670,6 +670,9 @@ async function startServer() {
       }
 
       const topNMetrics = {
+        // FIXME: Dividing by 252 assumes periods ≈ trading days. Since periods are actually 
+        // rebalance snapshots (app opens), sparse usage could distort this annualized CAGR.
+        // Revisit this logic once more historical snapshot data accumulates.
         cagr: periods > 0 ? (Math.pow(cumPort, 1 / Math.max(periods / 252, 0.01)) - 1) * 100 : 0,
         benchCagr: periods > 0 ? (Math.pow(cumBench, 1 / Math.max(periods / 252, 0.01)) - 1) * 100 : 0,
         sharpe: Number(sharpe.toFixed(2)),

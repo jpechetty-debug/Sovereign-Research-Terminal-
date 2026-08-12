@@ -4,10 +4,84 @@ export function sigmoid(x: number, mid: number, steepness: number, invert = fals
   return Math.max(0, Math.min(100, Math.round(val * 100)));
 }
 
-export function calculateNexusMatrix(metrics: any, liveChange: number, regime: string, sector: string = 'General', price: number = 0) {
-  const sales = metrics.salesGrowth != null ? sigmoid(metrics.salesGrowth, 15, 0.2) : null; 
-  const eps = metrics.epsGrowth != null ? sigmoid(metrics.epsGrowth, 15, 0.2) : null;     
-  const roe_roce = metrics.roe != null ? sigmoid(metrics.roe, 15, 0.2) : null;
+export type CrossSectionalFactorScores = {
+  sales: number | null;
+  eps: number | null;
+  roe_roce: number | null;
+  valuation: number | null;
+};
+
+export type CrossSectionalInput = {
+  ticker: string;
+  metrics: Record<string, unknown>;
+};
+
+function asFiniteNumber(value: unknown): number | null {
+  return typeof value === 'number' && Number.isFinite(value) ? value : null;
+}
+
+/**
+ * Scores a value against its peers using an average rank for ties. The best
+ * value is 100, the worst is 0, and an all-tied universe is neutral at 50.
+ */
+function percentileScore(value: unknown, peerValues: unknown[], higherIsBetter: boolean): number | null {
+  const numericValue = asFiniteNumber(value);
+  const peers = peerValues
+    .map(asFiniteNumber)
+    .filter((peer): peer is number => peer !== null);
+
+  if (numericValue === null || peers.length < 2) return null;
+
+  const lower = peers.filter(peer => peer < numericValue).length;
+  const ties = peers.filter(peer => peer === numericValue).length;
+  const increasingPercentile = ((lower + (ties - 1) / 2) / (peers.length - 1)) * 100;
+  const score = higherIsBetter ? increasingPercentile : 100 - increasingPercentile;
+
+  return Number(score.toFixed(2));
+}
+
+/**
+ * Builds factor scores from the current scan instead of anchoring them to
+ * permanent thresholds. P/E only admits profitable companies (positive P/E)
+ * so a loss-making company cannot look inexpensive merely because its P/E is
+ * negative or unavailable.
+ */
+export function calculateCrossSectionalScores(universe: CrossSectionalInput[]): Map<string, CrossSectionalFactorScores> {
+  const salesGrowth = universe.map(({ metrics }) => metrics.salesGrowth);
+  const epsGrowth = universe.map(({ metrics }) => metrics.epsGrowth);
+  const roe = universe.map(({ metrics }) => metrics.roe);
+  const positivePe = universe
+    .map(({ metrics }) => asFiniteNumber(metrics.peRatio))
+    .filter((pe): pe is number => pe !== null && pe > 0);
+
+  return new Map(universe.map(({ ticker, metrics }) => {
+    const peRatio = asFiniteNumber(metrics.peRatio);
+
+    return [ticker, {
+      sales: percentileScore(metrics.salesGrowth, salesGrowth, true),
+      eps: percentileScore(metrics.epsGrowth, epsGrowth, true),
+      roe_roce: percentileScore(metrics.roe, roe, true),
+      valuation: peRatio !== null && peRatio > 0
+        ? percentileScore(peRatio, positivePe, false)
+        : null,
+    }];
+  }));
+}
+
+export function calculateNexusMatrix(
+  metrics: any,
+  liveChange: number,
+  regime: string,
+  sector: string = 'General',
+  price: number = 0,
+  relativeScores?: CrossSectionalFactorScores,
+) {
+  // Use the current universe's percentile ranks whenever at least two valid
+  // peers are available. Fixed anchors remain only as a graceful fallback for
+  // a one-stock/insufficient-data scan.
+  const sales = relativeScores?.sales ?? (metrics.salesGrowth != null ? sigmoid(metrics.salesGrowth, 15, 0.2) : null);
+  const eps = relativeScores?.eps ?? (metrics.epsGrowth != null ? sigmoid(metrics.epsGrowth, 15, 0.2) : null);
+  const roe_roce = relativeScores?.roe_roce ?? (metrics.roe != null ? sigmoid(metrics.roe, 15, 0.2) : null);
   // cfoPat is now a real CFO/net-income ratio pulled from statement history
   // (see server.ts + src/lib/piotroski.ts) and can be `null` when Yahoo
   // doesn't have the underlying cash-flow data for this ticker — in that
@@ -16,14 +90,10 @@ export function calculateNexusMatrix(metrics: any, liveChange: number, regime: s
 
   const isFinancial = sector.includes('Financial') || sector.includes('Bank') || sector.includes('NBFC');
 
-  let peMidpoint = metrics.trailingPeMidpoint != null ? metrics.trailingPeMidpoint : 25;
-  if (metrics.trailingPeMidpoint == null) {
-    if (sector.includes('Tech') || sector.includes('IT')) peMidpoint = 35;
-    if (sector.includes('Utilities') || sector.includes('Energy')) peMidpoint = 15;
-    if (isFinancial) peMidpoint = 15; // Financials typically have lower P/Es
-  }
-  
-  const valuation = metrics.peRatio != null ? sigmoid(metrics.peRatio === 0 ? 100 : metrics.peRatio, peMidpoint, 0.15, true) : null; 
+  const peRatio = asFiniteNumber(metrics.peRatio);
+  const valuation = peRatio === null || peRatio <= 0
+    ? null
+    : relativeScores?.valuation ?? sigmoid(peRatio, 25, 0.15, true);
   
   // Financials intrinsically run with high leverage, so D/E is not a valid penalty
   const debt_equity = isFinancial || metrics.debtEquity == null ? null : sigmoid(metrics.debtEquity, 1.0, 3.0, true);

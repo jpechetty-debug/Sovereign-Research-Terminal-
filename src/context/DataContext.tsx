@@ -1,9 +1,11 @@
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
-import { calculateNexusMatrix } from '../lib/nexusAlphaEngine';
+import { calculateCrossSectionalScores, calculateNexusMatrix } from '../lib/nexusAlphaEngine';
 import { MOCK_STOCKS } from '../data/mockData';
 
 type StockData = typeof MOCK_STOCKS[0] & { 
   categoryScores?: { quality: number | null, growth: number | null, value: number | null, momentum: number | null, risk: number | null };
+  contributions?: { factor: string, points: number }[];
+  dataCompleteness?: { available: number, total: number };
 };
 
 export interface PriceAlert {
@@ -118,13 +120,14 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       const res = await fetch(`/api/scan?symbols=${tickers}`);
       if (!res.ok) throw new Error("API FAILED");
       const { data, vix: liveVix } = await res.json();
+      const liveByTicker = new Map<string, any>(data.map((live: any) => [live.ticker, live]));
       
       // Calculate current breadth before mapping stocks so we can use the regime for the engine
-      const withLiveData = currentStocks.filter(s => data.some((d: any) => d.ticker === s.ticker));
+      const withLiveData = currentStocks.filter(stock => liveByTicker.has(stock.ticker));
       let currentBreadthPct = marketBreadthPct;
       if (withLiveData.length > 0) {
         const upCount = withLiveData.filter(s => {
-          const d = data.find((d: any) => d.ticker === s.ticker);
+          const d = liveByTicker.get(s.ticker);
           return d && d.change > 0;
         }).length;
         currentBreadthPct = Math.round((upCount / withLiveData.length) * 100);
@@ -136,8 +139,23 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
         : currentBreadthPct <= 40 ? 'Bear'
         : 'Choppy';
 
+      // The scan already contains every universe member. Rank the comparable
+      // fundamentals once here, then pass each stock's peer-relative scores
+      // into the existing deterministic scoring engine.
+      const relativeScoresByTicker = calculateCrossSectionalScores(
+        currentStocks.flatMap(stock => {
+          const live = liveByTicker.get(stock.ticker);
+          if (!live?.fundamentals) return [];
+
+          return [{
+            ticker: stock.ticker,
+            metrics: { ...stock.metrics, ...live.fundamentals },
+          }];
+        })
+      );
+
       const newStocks = currentStocks.map(stock => {
-        const live = data.find((d: any) => d.ticker === stock.ticker);
+        const live = liveByTicker.get(stock.ticker);
         if (live) {
           const formatMcap = (m: number) => {
              const cr = m / 10000000;
@@ -147,7 +165,14 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           };
 
           const metrics = live.fundamentals ? { ...stock.metrics, ...live.fundamentals } : stock.metrics;
-          const matrix = calculateNexusMatrix(metrics, live.change || 0, currentMarketRegime, stock.sector, live.price);
+          const matrix = calculateNexusMatrix(
+            metrics,
+            live.change || 0,
+            currentMarketRegime,
+            stock.sector,
+            live.price,
+            relativeScoresByTicker.get(stock.ticker),
+          );
 
           // Phase 1: Save score snapshot
           fetch('/api/score-snapshot', {
