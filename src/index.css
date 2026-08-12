@@ -79,3 +79,36 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-brand);
 }
+
+/* Print styles for PDF export */
+@media print {
+  body {
+    background: white !important;
+    background-image: none !important;
+    color: #111 !important;
+  }
+
+  /* Hide everything except the memo */
+  nav, aside, header, .sidebar,
+  button, select, textarea, input,
+  .brutal-panel::before {
+    display: none !important;
+  }
+
+  .print-memo {
+    display: block !important;
+    color: #111 !important;
+  }
+
+  .print-memo * {
+    color: #111 !important;
+    border-color: #ccc !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+
+  .print-memo h4 {
+    color: #333 !important;
+    font-weight: 700 !important;
+  }
+}

@@ -190,10 +190,10 @@ async function startServer() {
   });
 
   app.post('/api/notes/:ticker', (req, res) => {
-    const { body, tag } = req.body;
+    const { body, tag, targetPrice, lastReviewedAt } = req.body;
     if (!body) return res.status(400).json({ error: 'Note body is required' });
     
-    const result = addNote(req.params.ticker, body, tag || 'journal');
+    const result = addNote(req.params.ticker, body, tag || 'journal', targetPrice, lastReviewedAt);
     if (result) {
       res.json({ success: true, id: result.id });
     } else {
@@ -582,37 +582,104 @@ async function startServer() {
       
       const forwardReturns = history.map(snapshot => {
         const prices = getPriceHistory(snapshot.ticker) as { date: string, close: number }[];
-        
-        // Find price on snapshot date
         const startDateIdx = prices.findIndex(p => p.date >= snapshot.date);
-        
         let return30 = null;
         let return90 = null;
 
         if (startDateIdx !== -1) {
           const startPrice = prices[startDateIdx].close;
-          
-          // Approximating 30 trading days ~ 42 calendar days
-          // or just look 30 indices ahead
-          const end30Idx = startDateIdx + 21; // roughly 1 month trading days
+          const end30Idx = startDateIdx + 21;
           if (end30Idx < prices.length) {
             return30 = (prices[end30Idx].close - startPrice) / startPrice;
           }
-
-          const end90Idx = startDateIdx + 63; // roughly 3 months trading days
+          const end90Idx = startDateIdx + 63;
           if (end90Idx < prices.length) {
             return90 = (prices[end90Idx].close - startPrice) / startPrice;
           }
         }
 
-        return {
-          ...snapshot,
-          return30,
-          return90
-        };
+        return { ...snapshot, return30, return90 };
       });
 
-      res.json({ data: forwardReturns });
+      // Phase 9: Top-10 vs Nifty portfolio reconstruction
+      const dateMap = new Map<string, typeof history>();
+      for (const snap of history) {
+        const arr = dateMap.get(snap.date) || [];
+        arr.push(snap);
+        dateMap.set(snap.date, arr);
+      }
+
+      const niftyPrices = getPriceHistory('^NSEI') as { date: string, close: number }[];
+      const niftyMap = new Map(niftyPrices.map(p => [p.date, p.close]));
+
+      const sortedDates = Array.from(dateMap.keys()).sort();
+      const portfolioReturns: number[] = [];
+      const benchmarkReturns: number[] = [];
+      let wins = 0;
+      let total = 0;
+
+      for (let i = 0; i < sortedDates.length - 1; i++) {
+        const date = sortedDates[i];
+        const nextDate = sortedDates[i + 1];
+        const snaps = dateMap.get(date)!;
+        // Top 10 by nexus_score
+        const top10 = [...snaps].sort((a, b) => b.nexus_score - a.nexus_score).slice(0, 10);
+
+        let portReturn = 0;
+        let validCount = 0;
+        for (const t of top10) {
+          const prices = getPriceHistory(t.ticker) as { date: string, close: number }[];
+          const p0 = prices.find(p => p.date >= date);
+          const p1 = prices.find(p => p.date >= nextDate);
+          if (p0 && p1 && p0.close > 0) {
+            portReturn += (p1.close - p0.close) / p0.close;
+            validCount++;
+          }
+        }
+        if (validCount === 0) continue;
+        portReturn /= validCount; // equal-weight
+
+        const n0 = niftyMap.get(date) || niftyMap.get(sortedDates.find(d => d >= date && niftyMap.has(d)) || '');
+        const n1 = niftyMap.get(nextDate) || niftyMap.get(sortedDates.find(d => d >= nextDate && niftyMap.has(d)) || '');
+        let benchReturn = 0;
+        if (n0 && n1 && n0 > 0) benchReturn = (n1 - n0) / n0;
+
+        portfolioReturns.push(portReturn);
+        benchmarkReturns.push(benchReturn);
+        if (portReturn > benchReturn) wins++;
+        total++;
+      }
+
+      // Aggregate metrics
+      const cumPort = portfolioReturns.reduce((acc, r) => acc * (1 + r), 1);
+      const cumBench = benchmarkReturns.reduce((acc, r) => acc * (1 + r), 1);
+      const periods = portfolioReturns.length || 1;
+      const avgPort = portfolioReturns.reduce((a, b) => a + b, 0) / periods;
+      const stdPort = Math.sqrt(portfolioReturns.reduce((a, r) => a + (r - avgPort) ** 2, 0) / periods);
+      const sharpe = stdPort > 0 ? (avgPort / stdPort) * Math.sqrt(252) : 0; // annualized
+
+      // Max drawdown of cumulative equity curve
+      let peak = 1;
+      let maxDd = 0;
+      let equity = 1;
+      for (const r of portfolioReturns) {
+        equity *= (1 + r);
+        if (equity > peak) peak = equity;
+        const dd = (equity - peak) / peak;
+        if (dd < maxDd) maxDd = dd;
+      }
+
+      const topNMetrics = {
+        cagr: periods > 0 ? (Math.pow(cumPort, 1 / Math.max(periods / 252, 0.01)) - 1) * 100 : 0,
+        benchCagr: periods > 0 ? (Math.pow(cumBench, 1 / Math.max(periods / 252, 0.01)) - 1) * 100 : 0,
+        sharpe: Number(sharpe.toFixed(2)),
+        maxDrawdown: Number((maxDd * 100).toFixed(2)),
+        winRate: total > 0 ? Number(((wins / total) * 100).toFixed(1)) : 0,
+        periods: total,
+        dateRange: sortedDates.length > 0 ? { from: sortedDates[0], to: sortedDates[sortedDates.length - 1] } : null
+      };
+
+      res.json({ data: forwardReturns, topNMetrics });
     } catch (err) {
       console.error(err);
       res.status(500).json({ error: 'Failed to fetch backtest data' });

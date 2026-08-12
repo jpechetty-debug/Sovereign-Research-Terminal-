@@ -2,7 +2,9 @@ import React, { createContext, useContext, useState, useEffect, useRef, useCallb
 import { calculateNexusMatrix } from '../lib/nexusAlphaEngine';
 import { MOCK_STOCKS } from '../data/mockData';
 
-type StockData = typeof MOCK_STOCKS[0];
+type StockData = typeof MOCK_STOCKS[0] & { 
+  categoryScores?: { quality: number | null, growth: number | null, value: number | null, momentum: number | null, risk: number | null };
+};
 
 export interface PriceAlert {
   id: string;
@@ -95,7 +97,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
           marketCap: "Unknown",
           regime: "Unknown",
           metrics: { mcapCr: 0, pledge: 0, salesGrowth: 0, epsGrowth: 0, roe: 0, cfoPat: null as number | null, fScore: null as number | null, debtEquity: 0, peRatio: 0, fiftyTwoWeekChange: 0, fiftyDayAverage: 0, twoHundredDayAverage: 0 },
-          scores: { sales: 0, roe_roce: 0, cfo_pat: 0, valuation: 0, eps: 0, f_score: 0, debt_equity: 0, momentum: 0, sentiment: 0 }
+          scores: { sales: 0, roe_roce: 0, cfo_pat: 0, valuation: 0, eps: 0, f_score: 0, debt_equity: 0, momentum: 0, sentiment: 0 },
+          categoryScores: { quality: null, growth: null, value: null, momentum: null, risk: null }
         }));
         setStocks(initializedStocks);
       }
@@ -167,6 +170,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
             regime: currentMarketRegime,
             scores: matrix.scores,
             contributions: matrix.contributions,
+            categoryScores: matrix.categoryScores,
             dataCompleteness: matrix.dataCompleteness,
             nexusScore: matrix.nexusScore
           };

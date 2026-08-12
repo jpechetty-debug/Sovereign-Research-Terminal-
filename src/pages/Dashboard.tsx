@@ -4,6 +4,7 @@ import { useAppEngine } from '../context/DataContext';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
 import { formatCurrency } from '../lib/formatters';
+import { RegimeBanner } from '../components/RegimeBanner';
 
 const HIGH_CONVICTION_THRESHOLD = 80;
 
@@ -73,7 +74,7 @@ export function Dashboard() {
 
   return (
     <motion.div variants={containerVars} initial="hidden" animate="show" className="space-y-6">
-      <motion.div variants={itemVars} className="flex items-center justify-between">
+      <motion.div variants={itemVars} className="flex items-center justify-between mb-4">
         <div>
           <h1 className="text-3xl font-bold tracking-tight text-zinc-100 mb-1">TERMINAL DASHBOARD</h1>
           <p className="text-brand font-mono text-xs uppercase tracking-widest">System Status: Nominal // Live Mesh Connected</p>
@@ -88,6 +89,8 @@ export function Dashboard() {
           />
         </div>
       </motion.div>
+
+      <RegimeBanner />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         

@@ -56,6 +56,8 @@ export function initDB() {
       ticker TEXT NOT NULL,
       body TEXT NOT NULL,
       tag TEXT,
+      target_price REAL,
+      last_reviewed_at DATETIME,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     );
 
@@ -73,6 +75,14 @@ export function initDB() {
       PRIMARY KEY (ticker, generated_at)
     );
   `);
+
+  // Migrate existing notes table if missing new columns
+  try {
+    db.exec(`ALTER TABLE notes ADD COLUMN target_price REAL`);
+  } catch (_) { /* column already exists */ }
+  try {
+    db.exec(`ALTER TABLE notes ADD COLUMN last_reviewed_at DATETIME`);
+  } catch (_) { /* column already exists */ }
 
   const count = db.prepare('SELECT count(*) as c FROM universe').get() as { c: number };
   if (count.c === 0) {
@@ -223,13 +233,13 @@ export function saveAlphaScore(ticker: string, date: string, nexusScore: number,
 }
 
 export function getNotes(ticker: string) {
-  return db.prepare('SELECT id, ticker, body, tag, created_at FROM notes WHERE ticker = ? ORDER BY created_at DESC').all(ticker);
+  return db.prepare('SELECT id, ticker, body, tag, target_price, last_reviewed_at, created_at FROM notes WHERE ticker = ? ORDER BY created_at DESC').all(ticker);
 }
 
-export function addNote(ticker: string, body: string, tag: string) {
+export function addNote(ticker: string, body: string, tag: string, targetPrice?: number, lastReviewedAt?: string) {
   try {
-    const insert = db.prepare('INSERT INTO notes (ticker, body, tag) VALUES (?, ?, ?)');
-    const info = insert.run(ticker, body, tag);
+    const insert = db.prepare('INSERT INTO notes (ticker, body, tag, target_price, last_reviewed_at) VALUES (?, ?, ?, ?, ?)');
+    const info = insert.run(ticker, body, tag, targetPrice ?? null, lastReviewedAt ?? null);
     return { id: info.lastInsertRowid };
   } catch (err) {
     console.error("Error adding note", err);

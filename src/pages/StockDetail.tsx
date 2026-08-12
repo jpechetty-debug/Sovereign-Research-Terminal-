@@ -1,7 +1,7 @@
 import React, { useMemo, useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, LineChart, Line, Legend } from 'recharts';
-import { ArrowLeft, CheckCircle, AlertTriangle, ExternalLink, Activity, ThumbsUp, ThumbsDown, Target, Zap, Bell, X, BarChart2, Calculator, Brain, Loader2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle, AlertTriangle, ExternalLink, Activity, ThumbsUp, ThumbsDown, Target, Zap, Bell, X, BarChart2, Calculator, Brain, Loader2, Printer } from 'lucide-react';
 import { useAppEngine } from '../context/DataContext';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
@@ -25,6 +25,7 @@ export function StockDetail() {
   const [notes, setNotes] = useState<any[]>([]);
   const [newNoteBody, setNewNoteBody] = useState('');
   const [newNoteTag, setNewNoteTag] = useState('thesis');
+  const [newNoteTargetPrice, setNewNoteTargetPrice] = useState('');
   
   const [activeTab, setActiveTab] = useState<'overview' | 'financials'>('overview');
   const [analysisData, setAnalysisData] = useState<any>(null);
@@ -35,25 +36,20 @@ export function StockDetail() {
   const stock = stocks.find(s => s.ticker === ticker);
 
   const radarData = useMemo(() => {
-    if (!stock) return [];
+    if (!stock || !stock.categoryScores) return [];
     
-    // Explicit 9-factor model mapping 
-    const factorLabels: Record<string, string> = {
-      sales: "SALES GR",
-      roe_roce: "ROE/ROCE",
-      cfo_pat: "CFO/PAT",
-      valuation: "VALUATION",
-      eps: "EPS GR",
-      f_score: "F",
-      debt_equity: "DEBT",
-      momentum: "MOMO",
-      sentiment: "SENTI"
-    };
+    // Explicit 5-category model mapping 
+    const categories = [
+      { key: 'quality', label: 'QUALITY' },
+      { key: 'growth', label: 'GROWTH' },
+      { key: 'value', label: 'VALUE' },
+      { key: 'momentum', label: 'MOMENTUM' },
+      { key: 'risk', label: 'RISK' }
+    ];
 
-    const keys = Object.keys(stock.scores) as Array<keyof typeof stock.scores>;
-    return keys.map(k => ({
-      subject: factorLabels[k as string] || (k as string).toUpperCase(),
-      A: stock.scores[k],
+    return categories.map(cat => ({
+      subject: cat.label,
+      A: stock.categoryScores![cat.key as keyof typeof stock.categoryScores] || 0,
       fullMark: 100,
     }));
   }, [stock]);
@@ -151,17 +147,19 @@ export function StockDetail() {
 
   const handleAddNote = () => {
     if (!newNoteBody.trim() || !ticker) return;
+    const tp = parseFloat(newNoteTargetPrice);
     
     fetch(`/api/notes/${encodeURIComponent(ticker)}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ body: newNoteBody, tag: newNoteTag })
+      body: JSON.stringify({ body: newNoteBody, tag: newNoteTag, targetPrice: isNaN(tp) ? null : tp, lastReviewedAt: new Date().toISOString() })
     })
     .then(res => res.json())
     .then(res => {
       if (res.success) {
-        setNotes([{ id: res.id, ticker, body: newNoteBody, tag: newNoteTag, created_at: new Date().toISOString() }, ...notes]);
+        setNotes([{ id: res.id, ticker, body: newNoteBody, tag: newNoteTag, target_price: isNaN(tp) ? null : tp, last_reviewed_at: new Date().toISOString(), created_at: new Date().toISOString() }, ...notes]);
         setNewNoteBody('');
+        setNewNoteTargetPrice('');
       }
     })
     .catch(console.error);
@@ -590,7 +588,7 @@ export function StockDetail() {
             value={newNoteBody}
             onChange={(e) => setNewNoteBody(e.target.value)}
           />
-          <div className="flex flex-col gap-2 shrink-0 w-40">
+          <div className="flex flex-col gap-2 shrink-0 w-48">
             <select
               className="bg-black/50 border border-white/10 rounded-sm p-2 text-xs font-mono text-zinc-300 focus:outline-none focus:border-brand/50 transition-colors uppercase tracking-widest"
               value={newNoteTag}
@@ -601,6 +599,16 @@ export function StockDetail() {
               <option value="catalyst">Catalyst</option>
               <option value="journal">Journal</option>
             </select>
+            <div className="flex items-center gap-1">
+              <span className="font-mono text-zinc-500 text-xs">₹</span>
+              <input
+                type="number"
+                placeholder="Target Price"
+                value={newNoteTargetPrice}
+                onChange={(e) => setNewNoteTargetPrice(e.target.value)}
+                className="flex-1 bg-black/50 border border-white/10 rounded-sm px-2 py-1.5 text-xs font-mono text-white focus:outline-none focus:border-brand/50 placeholder:text-zinc-600"
+              />
+            </div>
             <button
               onClick={handleAddNote}
               disabled={!newNoteBody.trim()}
@@ -638,6 +646,12 @@ export function StockDetail() {
                   </span>
                 </div>
                 <p className="text-sm text-zinc-300 font-mono whitespace-pre-wrap">{note.body}</p>
+                {(note.target_price || note.last_reviewed_at) && (
+                  <div className="flex gap-4 mt-2 text-[10px] font-mono text-zinc-500">
+                    {note.target_price && <span>Target: ₹{note.target_price}</span>}
+                    {note.last_reviewed_at && <span>Reviewed: {new Date(note.last_reviewed_at).toLocaleDateString()}</span>}
+                  </div>
+                )}
               </div>
             ))
           )}
@@ -652,13 +666,23 @@ export function StockDetail() {
             <Brain className="w-4 h-4 text-brand glow-text" /> 
             AI Investment Memo (Gemini 2.5)
           </h3>
-          <button 
-            onClick={handleGenerateAiMemo} 
-            disabled={isGeneratingMemo}
-            className="bg-brand/10 text-brand border border-brand/30 hover:bg-brand/20 disabled:opacity-50 px-4 py-2 text-xs font-mono font-bold tracking-widest uppercase rounded-sm transition-colors flex items-center gap-2"
-          >
-            {isGeneratingMemo ? <><Loader2 className="w-3 h-3 animate-spin" /> SYNTHESIZING...</> : 'GENERATE MEMO'}
-          </button>
+          <div className="flex items-center gap-2">
+            {aiMemo && (
+              <button
+                onClick={() => window.print()}
+                className="bg-white/5 text-zinc-400 border border-white/10 hover:bg-white/10 hover:text-white px-3 py-2 text-xs font-mono font-bold tracking-widest uppercase rounded-sm transition-colors flex items-center gap-2"
+              >
+                <Printer className="w-3 h-3" /> EXPORT PDF
+              </button>
+            )}
+            <button 
+              onClick={handleGenerateAiMemo} 
+              disabled={isGeneratingMemo}
+              className="bg-brand/10 text-brand border border-brand/30 hover:bg-brand/20 disabled:opacity-50 px-4 py-2 text-xs font-mono font-bold tracking-widest uppercase rounded-sm transition-colors flex items-center gap-2"
+            >
+              {isGeneratingMemo ? <><Loader2 className="w-3 h-3 animate-spin" /> SYNTHESIZING...</> : 'GENERATE MEMO'}
+            </button>
+          </div>
         </div>
 
         <div className="relative z-10">
@@ -667,7 +691,31 @@ export function StockDetail() {
               No AI memo generated yet. Click generate to synthesize thesis, risks, and verdict based on fundamentals and user notes.
             </div>
           ) : (
-            <div className="space-y-6">
+            <div className="space-y-6 print-memo">
+              {/* New Phase 10 sections */}
+              {(aiMemo.businessOverview || aiMemo.competitiveMoat || aiMemo.managementQuality) && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {aiMemo.businessOverview && (
+                    <div className="bg-black/40 border border-white/5 p-4 rounded-sm shadow-inner">
+                      <h4 className="text-[10px] uppercase font-mono tracking-widest text-brand/70 mb-2">Business Overview</h4>
+                      <p className="text-sm text-zinc-200 font-mono leading-relaxed">{aiMemo.businessOverview}</p>
+                    </div>
+                  )}
+                  {aiMemo.competitiveMoat && (
+                    <div className="bg-black/40 border border-white/5 p-4 rounded-sm shadow-inner">
+                      <h4 className="text-[10px] uppercase font-mono tracking-widest text-brand/70 mb-2">Competitive Moat</h4>
+                      <p className="text-sm text-zinc-200 font-mono leading-relaxed">{aiMemo.competitiveMoat}</p>
+                    </div>
+                  )}
+                  {aiMemo.managementQuality && (
+                    <div className="bg-black/40 border border-white/5 p-4 rounded-sm shadow-inner">
+                      <h4 className="text-[10px] uppercase font-mono tracking-widest text-brand/70 mb-2">Management Quality</h4>
+                      <p className="text-sm text-zinc-200 font-mono leading-relaxed">{aiMemo.managementQuality}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="bg-black/40 border border-white/5 p-4 rounded-sm shadow-inner">
                   <h4 className="text-[10px] uppercase font-mono tracking-widest text-zinc-500 mb-2">Primary Thesis</h4>

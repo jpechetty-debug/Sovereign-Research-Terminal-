@@ -113,12 +113,25 @@ export function calculateNexusMatrix(metrics: any, liveChange: number, regime: s
   // Sort contributions by absolute impact (highest magnitude first)
   contributions.sort((a, b) => Math.abs(b.points) - Math.abs(a.points));
 
+  // Phase 8: Named category scores — group existing factors into 5 buckets
+  const avgBucket = (keys: string[]) => {
+    const vals = keys.map(k => (scores as any)[k]).filter((v: any) => v !== null) as number[];
+    return vals.length > 0 ? Math.round(vals.reduce((s, v) => s + v, 0) / vals.length) : null;
+  };
+
+  const categoryScores = {
+    quality:  avgBucket(['f_score', 'cfo_pat', 'roe_roce']),
+    growth:   avgBucket(['sales', 'eps']),
+    value:    avgBucket(['valuation']),
+    momentum: avgBucket(['momentum']),
+    risk:     avgBucket(['debt_equity']),
+  };
+
   return {
     scores,
     contributions,
+    categoryScores,
     nexusScore,
-    // Lets the UI show "score based on N/9 factors" instead of implying
-    // every score is equally well-supported by data.
     dataCompleteness: { available: factorsAvailable, total: totalFactors },
   };
 }

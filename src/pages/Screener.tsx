@@ -97,9 +97,11 @@ export function Screener() {
                 <th className="py-4 px-5 font-medium text-center cursor-pointer hover:text-white transition-colors">
                   <div className="flex items-center justify-center gap-1.5">Nexus<ArrowUpDown className="w-3 h-3 text-brand"/></div>
                 </th>
-                <th className="py-4 px-5 font-medium text-center">Quality Gate</th>
-                <th className="py-4 px-5 font-medium text-center">F-Score</th>
-                <th className="py-4 px-5 font-medium text-right">PE Ratio</th>
+                <th className="py-4 px-5 font-medium text-center">Quality</th>
+                <th className="py-4 px-5 font-medium text-center">Growth</th>
+                <th className="py-4 px-5 font-medium text-center">Value</th>
+                <th className="py-4 px-5 font-medium text-center">Momentum</th>
+                <th className="py-4 px-5 font-medium text-center">Risk</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -121,19 +123,21 @@ export function Screener() {
                   <td className="py-3 px-5 text-right font-mono tabular-data text-xs text-zinc-400">{stock.marketCap}</td>
                   <td className="py-3 px-5 text-right font-mono tabular-data text-sm">{formatCurrency(stock.price, stock.ticker)}</td>
                   <td className="py-3 px-5 text-center font-mono font-bold text-xs tabular-data text-brand glow-text">{stock.nexusScore.toFixed(1)}</td>
-                  <td className="py-3 px-5 text-center">
-                    {stock.metrics.fScore == null ? (
-                      <span className="px-2 py-1 bg-white/5 border border-white/10 text-dim text-[9px] uppercase font-mono tracking-widest rounded-sm">N/A</span>
-                    ) : (stock.metrics.fScore >= 5 && (stock.metrics.debtEquity < 1.5 || stock.sector.includes('Financial') || stock.sector.includes('Bank') || stock.sector.includes('NBFC'))) ? (
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500/30 text-green-400 text-[9px] uppercase font-mono tracking-widest rounded-sm">PASS</span>
-                    ) : (
-                      <span className="px-2 py-1 bg-red-500/10 border border-red-500/30 text-red-400 text-[9px] uppercase font-mono tracking-widest rounded-sm">FAIL</span>
-                    )}
+                  <td className="py-3 px-5 text-center font-mono text-xs tabular-data text-zinc-300">
+                    {stock.categoryScores?.quality ?? '—'}
                   </td>
                   <td className="py-3 px-5 text-center font-mono text-xs tabular-data text-zinc-300">
-                    {stock.metrics.fScore == null ? '—' : Number.isInteger(stock.metrics.fScore) ? stock.metrics.fScore : stock.metrics.fScore.toFixed(1)}
+                    {stock.categoryScores?.growth ?? '—'}
                   </td>
-                  <td className="py-3 px-5 text-right font-mono text-xs tabular-data text-zinc-400">{stock.metrics.peRatio != null ? `${(stock.metrics.peRatio).toFixed(1)}x` : 'N/A'}</td>
+                  <td className="py-3 px-5 text-center font-mono text-xs tabular-data text-zinc-300">
+                    {stock.categoryScores?.value ?? '—'}
+                  </td>
+                  <td className="py-3 px-5 text-center font-mono text-xs tabular-data text-zinc-300">
+                    {stock.categoryScores?.momentum ?? '—'}
+                  </td>
+                  <td className="py-3 px-5 text-center font-mono text-xs tabular-data text-zinc-300">
+                    {stock.categoryScores?.risk ?? '—'}
+                  </td>
                 </tr>
               ))}
               {/* Filler rows to maintain height visual */}
@@ -145,9 +149,11 @@ export function Screener() {
                   <td className="py-3 px-5 text-right font-mono text-xs">---</td>
                   <td className="py-3 px-5 text-right font-mono text-xs">---</td>
                   <td className="py-3 px-5 text-center font-mono font-bold text-xs">---</td>
-                  <td className="py-3 px-5 text-center">---</td>
                   <td className="py-3 px-5 text-center font-mono text-xs">---</td>
-                  <td className="py-3 px-5 text-right font-mono text-xs">---</td>
+                  <td className="py-3 px-5 text-center font-mono text-xs">---</td>
+                  <td className="py-3 px-5 text-center font-mono text-xs">---</td>
+                  <td className="py-3 px-5 text-center font-mono text-xs">---</td>
+                  <td className="py-3 px-5 text-center font-mono text-xs">---</td>
                  </tr>
               ))}
             </tbody>
